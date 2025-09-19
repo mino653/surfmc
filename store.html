@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - Surfnetwork</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Surfnetwork
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="updates.html">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="store.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Store Section -->
+    <section class="store-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="section-title">Server Store</h1>
+                    <p class="section-subtitle">Support the server and unlock exclusive perks</p>
+                </div>
+            </div>
+
+            <!-- Ranks Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-crown me-2"></i>Server Ranks</h2>
+                    <p class="text-muted mb-4">Upgrade your rank to unlock exclusive features, commands, and perks!</p>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <h3 class="product-title">VIP Rank</h3>
+                            <div class="product-price">$9.99</div>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> VIP prefix and chat color</li>
+                                <li><i class="fas fa-check"></i> 5 additional homes</li>
+                                <li><i class="fas fa-check"></i> Access to /fly command</li>
+                                <li><i class="fas fa-check"></i> Priority queue access</li>
+                                <li><i class="fas fa-check"></i> Exclusive VIP areas</li>
+                                <li><i class="fas fa-check"></i> 50% more claim blocks</li>
+                                <li><i class="fas fa-check"></i> VIP support channel</li>
+                            </ul>
+                            <button class="btn btn-primary w-100" onclick="purchaseItem('VIP Rank', 9.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <h3 class="product-title">MVP Rank</h3>
+                            <div class="product-price">$19.99</div>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> All VIP features</li>
+                                <li><i class="fas fa-check"></i> MVP prefix and chat color</li>
+                                <li><i class="fas fa-check"></i> 10 total homes</li>
+                                <li><i class="fas fa-check"></i> Access to /nick command</li>
+                                <li><i class="fas fa-check"></i> Exclusive MVP kit</li>
+                                <li><i class="fas fa-check"></i> 100% more claim blocks</li>
+                                <li><i class="fas fa-check"></i> Pet system access</li>
+                                <li><i class="fas fa-check"></i> Particle effects</li>
+                            </ul>
+                            <button class="btn btn-success w-100" onclick="purchaseItem('MVP Rank', 19.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-warning">
+                            <h3 class="product-title">ELITE Rank</h3>
+                            <div class="product-price">$39.99</div>
+                            <small class="badge bg-danger">Most Popular</small>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> All MVP features</li>
+                                <li><i class="fas fa-check"></i> ELITE prefix and chat color</li>
+                                <li><i class="fas fa-check"></i> 20 total homes</li>
+                                <li><i class="fas fa-check"></i> Access to /god command</li>
+                                <li><i class="fas fa-check"></i> Exclusive ELITE kit</li>
+                                <li><i class="fas fa-check"></i> 200% more claim blocks</li>
+                                <li><i class="fas fa-check"></i> Custom join/leave messages</li>
+                                <li><i class="fas fa-check"></i> Disguise as mobs</li>
+                                <li><i class="fas fa-check"></i> Access to ELITE world</li>
+                            </ul>
+                            <button class="btn btn-warning w-100" onclick="purchaseItem('ELITE Rank', 39.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cosmetics Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-palette me-2"></i>Cosmetics & Items</h2>
+                    <p class="text-muted mb-4">Customize your appearance and show off your style!</p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-info">
+                            <h4 class="product-title">Pet Package</h4>
+                            <div class="product-price">$4.99</div>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> 5 unique pets</li>
+                                <li><i class="fas fa-check"></i> Pet naming system</li>
+                                <li><i class="fas fa-check"></i> Pet inventory storage</li>
+                                <li><i class="fas fa-check"></i> Special pet abilities</li>
+                            </ul>
+                            <button class="btn btn-info w-100" onclick="purchaseItem('Pet Package', 4.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-purple">
+                            <h4 class="product-title">Trail Effects</h4>
+                            <div class="product-price">$2.99</div>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> 10 particle trails</li>
+                                <li><i class="fas fa-check"></i> Color customization</li>
+                                <li><i class="fas fa-check"></i> Speed adjustments</li>
+                                <li><i class="fas fa-check"></i> Toggle on/off</li>
+                            </ul>
+                            <button class="btn btn-primary w-100" onclick="purchaseItem('Trail Effects', 2.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-success">
+                            <h4 class="product-title">Chat Colors</h4>
+                            <div class="product-price">$1.99</div>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> 16 chat colors</li>
+                                <li><i class="fas fa-check"></i> Gradient effects</li>
+                                <li><i class="fas fa-check"></i> Rainbow text</li>
+                                <li><i class="fas fa-check"></i> Bold/italic formatting</li>
+                            </ul>
+                            <button class="btn btn-success w-100" onclick="purchaseItem('Chat Colors', 1.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-danger">
+                            <h4 class="product-title">Wings Pack</h4>
+                            <div class="product-price">$7.99</div>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> 8 wing designs</li>
+                                <li><i class="fas fa-check"></i> Animated effects</li>
+                                <li><i class="fas fa-check"></i> Size adjustments</li>
+                                <li><i class="fas fa-check"></i> Color variations</li>
+                            </ul>
+                            <button class="btn btn-danger w-100" onclick="purchaseItem('Wings Pack', 7.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bundles Section -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-gift me-2"></i>Special Bundles</h2>
+                    <p class="text-muted mb-4">Get more value with our exclusive bundle deals!</p>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-gradient">
+                            <h3 class="product-title">Starter Bundle</h3>
+                            <div class="product-price">$14.99</div>
+                            <small class="badge bg-success">Save 25%</small>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> VIP Rank (normally $9.99)</li>
+                                <li><i class="fas fa-check"></i> Pet Package (normally $4.99)</li>
+                                <li><i class="fas fa-check"></i> Chat Colors (normally $1.99)</li>
+                                <li><i class="fas fa-check"></i> Exclusive starter kit</li>
+                                <li><i class="fas fa-check"></i> 1000 in-game coins</li>
+                                <li><i class="fas fa-check"></i> Welcome message broadcast</li>
+                            </ul>
+                            <button class="btn btn-success w-100" onclick="purchaseItem('Starter Bundle', 14.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase Bundle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-gradient">
+                            <h3 class="product-title">Ultimate Bundle</h3>
+                            <div class="product-price">$59.99</div>
+                            <small class="badge bg-warning">Save 40%</small>
+                        </div>
+                        <div class="product-body">
+                            <ul class="product-features">
+                                <li><i class="fas fa-check"></i> ELITE Rank (normally $39.99)</li>
+                                <li><i class="fas fa-check"></i> All cosmetic packages</li>
+                                <li><i class="fas fa-check"></i> Exclusive ultimate kit</li>
+                                <li><i class="fas fa-check"></i> 5000 in-game coins</li>
+                                <li><i class="fas fa-check"></i> Custom title "Ultimate"</li>
+                                <li><i class="fas fa-check"></i> Priority support</li>
+                                <li><i class="fas fa-check"></i> Beta features access</li>
+                            </ul>
+                            <button class="btn btn-warning w-100" onclick="purchaseItem('Ultimate Bundle', 59.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase Bundle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In-Game Currency -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-coins me-2"></i>In-Game Currency</h2>
+                    <p class="text-muted mb-4">Purchase coins to use in our server economy!</p>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <h4 class="product-title">1,000 Coins</h4>
+                            <div class="product-price">$2.99</div>
+                        </div>
+                        <div class="product-body text-center">
+                            <i class="fas fa-coins text-warning" style="font-size: 3rem;"></i>
+                            <p class="mt-3">Perfect for small purchases and getting started in the economy.</p>
+                            <button class="btn btn-primary w-100" onclick="purchaseItem('1000 Coins', 2.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <h4 class="product-title">5,000 Coins</h4>
+                            <div class="product-price">$12.99</div>
+                        </div>
+                        <div class="product-body text-center">
+                            <i class="fas fa-coins text-warning" style="font-size: 3rem;"></i>
+                            <p class="mt-3">Great value for medium purchases and investments.</p>
+                            <button class="btn btn-primary w-100" onclick="purchaseItem('5000 Coins', 12.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <h4 class="product-title">10,000 Coins</h4>
+                            <div class="product-price">$24.99</div>
+                        </div>
+                        <div class="product-body text-center">
+                            <i class="fas fa-coins text-warning" style="font-size: 3rem;"></i>
+                            <p class="mt-3">Best value for serious players and big purchases.</p>
+                            <button class="btn btn-success w-100" onclick="purchaseItem('10000 Coins', 24.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="product-card">
+                        <div class="product-header bg-warning">
+                            <h4 class="product-title">25,000 Coins</h4>
+                            <div class="product-price">$49.99</div>
+                            <small class="badge bg-danger">Best Value</small>
+                        </div>
+                        <div class="product-body text-center">
+                            <i class="fas fa-coins text-warning" style="font-size: 3rem;"></i>
+                            <p class="mt-3">Maximum coins for the ultimate server experience!</p>
+                            <button class="btn btn-warning w-100" onclick="purchaseItem('25000 Coins', 49.99)">
+                                <i class="fas fa-shopping-cart me-2"></i>Purchase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Info -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-info">
+                        <h4><i class="fas fa-info-circle me-2"></i>Payment Information</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Accepted Payment Methods:</strong></p>
+                                <ul>
+                                    <li><i class="fab fa-cc-visa me-2"></i> Visa</li>
+                                    <li><i class="fab fa-cc-mastercard me-2"></i> Mastercard</li>
+                                    <li><i class="fab fa-paypal me-2"></i> PayPal</li>
+                                    <li><i class="fab fa-bitcoin me-2"></i> Cryptocurrency</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Important Notes:</strong></p>
+                                <ul>
+                                    <li>All purchases are final - no refunds</li>
+                                    <li>Items are delivered instantly after payment</li>
+                                    <li>You must be logged in to make purchases</li>
+                                    <li>Contact support for any payment issues</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube me-2"></i>Surfnetwork</h5>
+                    <p>The ultimate Surfnetwork experience awaits you.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mt-2">&copy; 2025 Surfnetwork. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="terms.html" class="text-light me-3">Terms of Service</a>
+                        <a href="privacy.html" class="text-light">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

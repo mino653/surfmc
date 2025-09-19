@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Surfnetwork</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Surfnetwork
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="updates.html">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <!-- Login Form -->
+                    <div class="auth-card" id="loginCard">
+                        <div class="auth-header">
+                            <h2><i class="fas fa-sign-in-alt me-2"></i>Login</h2>
+                            <p class="mb-0">Welcome back, player!</p>
+                        </div>
+                        <div class="auth-body">
+                            <form id="loginForm">
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input type="email" class="form-control" name="email" required placeholder="Enter your email">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control" name="password" id="loginPassword" required placeholder="Enter your password">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('loginPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-auth">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                                </button>
+                            </form>
+                            
+                            <div class="text-center mt-3">
+                                <p class="mb-2">Don't have an account?</p>
+                                <button class="btn btn-outline-primary" onclick="showSignupForm()">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </div>
+                            
+                            <div class="text-center mt-3">
+                                <a href="#" class="text-muted small">Forgot your password?</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signup Form -->
+                    <div class="auth-card d-none" id="signupCard">
+                        <div class="auth-header">
+                            <h2><i class="fas fa-user-plus me-2"></i>Sign Up</h2>
+                            <p class="mb-0">Join our community!</p>
+                        </div>
+                        <div class="auth-body">
+                            <form id="signupForm">
+                                <div class="form-group">
+                                    <label class="form-label">Username</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <input type="text" class="form-control" name="username" required placeholder="Choose a username" minlength="3" maxlength="20">
+                                    </div>
+                                    <small class="form-text text-muted">3-20 characters, letters and numbers only</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input type="email" class="form-control" name="email" required placeholder="Enter your email">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control" name="password" id="signupPassword" required placeholder="Create a password" minlength="6">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('signupPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <small class="form-text text-muted">Minimum 6 characters</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Confirm Password</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required placeholder="Confirm your password">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('confirmPassword')">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                        <label class="form-check-label" for="agreeTerms">
+                                            I agree to the <a href="terms.html" class="text-primary" target="_blank">Terms of Service</a> and <a href="privacy.html" class="text-primary" target="_blank">Privacy Policy</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="newsletter">
+                                        <label class="form-check-label" for="newsletter">
+                                            Subscribe to server updates and news
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-auth">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </form>
+                            
+                            <div class="text-center mt-3">
+                                <p class="mb-2">Already have an account?</p>
+                                <button class="btn btn-outline-primary" onclick="showLoginForm()">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login Instead
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 mb-4">
+                    <h3>Why Create an Account?</h3>
+                    <p class="text-muted">Unlock exclusive features and benefits</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h5>Store Access</h5>
+                        <p class="text-muted">Purchase ranks, items, and exclusive content from our store.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h5>Track Progress</h5>
+                        <p class="text-muted">Monitor your achievements, statistics, and server progress.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5>Community</h5>
+                        <p class="text-muted">Connect with other players and join our community forums.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube me-2"></i>Surfnetwork</h5>
+                    <p>The ultimate Surfnetwork experience awaits you.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mt-2">&copy; 2025 Surfnetwork. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="terms.html" class="text-light me-3">Terms of Service</a>
+                        <a href="privacy.html" class="text-light">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Toggle between login and signup forms
+        function showSignupForm() {
+            document.getElementById('loginCard').classList.add('d-none');
+            document.getElementById('signupCard').classList.remove('d-none');
+        }
+        
+        function showLoginForm() {
+            document.getElementById('signupCard').classList.add('d-none');
+            document.getElementById('loginCard').classList.remove('d-none');
+        }
+        
+        // Real-time password validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const signupPassword = document.getElementById('signupPassword');
+            const confirmPassword = document.getElementById('confirmPassword');
+            
+            function validatePasswords() {
+                if (confirmPassword.value && signupPassword.value !== confirmPassword.value) {
+                    confirmPassword.setCustomValidity('Passwords do not match');
+                } else {
+                    confirmPassword.setCustomValidity('');
+                }
+            }
+            
+            if (signupPassword && confirmPassword) {
+                signupPassword.addEventListener('input', validatePasswords);
+                confirmPassword.addEventListener('input', validatePasswords);
+            }
+        });
+    </script>
+</body>
+</html>

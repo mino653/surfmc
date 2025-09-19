@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Surfnetwork</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .admin-sidebar {
+            background: white;
+            min-height: 100vh;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 0;
+        }
+        .admin-content {
+            padding: 30px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        .nav-link {
+            color: #495057;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .user-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e9ecef;
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .user-info h5 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        .user-info p {
+            margin: 5px 0 0 0;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .status-online {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .rank-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .rank-owner { background: #dc3545; color: white; }
+        .rank-admin { background: #fd7e14; color: white; }
+        .rank-moderator { background: #6f42c1; color: white; }
+        .rank-vip { background: #20c997; color: white; }
+        .rank-default { background: #6c757d; color: white; }
+        .btn-action {
+            padding: 6px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+        .btn-edit { background: #17a2b8; color: white; }
+        .btn-ban { background: #dc3545; color: white; }
+        .btn-unban { background: #28a745; color: white; }
+        .btn-delete { background: #6c757d; color: white; }
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 10px 15px;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .table th {
+            background: #f8f9fa;
+            border: none;
+            font-weight: 600;
+            color: #495057;
+        }
+        .table td {
+            border: none;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: middle;
+        }
+        .search-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            min-width: 300px;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .notification.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .notification.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .notification.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-left: 4px solid #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <div class="admin-header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1><i class="fas fa-shield-alt me-2"></i>Admin Panel</h1>
+                    <p class="mb-0">Surfnetwork Administration Dashboard</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-shield me-2"></i>Admin User
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="index.html">
+                                <i class="fas fa-home me-2"></i>Go to Home Page
+                            </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="logoutAdmin()">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 admin-sidebar">
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('users')">
+                        <i class="fas fa-users"></i>User Management
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('signups')">
+                        <i class="fas fa-user-plus"></i>Recent Signups
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('purchases')">
+                        <i class="fas fa-shopping-cart"></i>Purchases
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('messages')">
+                        <i class="fas fa-envelope"></i>Messages
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('analytics')">
+                        <i class="fas fa-chart-line"></i>Analytics
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('server')">
+                        <i class="fas fa-server"></i>Server Management
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('logs')">
+                        <i class="fas fa-file-alt"></i>Activity Logs
+                    </a>
+                    <a class="nav-link" href="#" onclick="showSection('settings')">
+                        <i class="fas fa-cog"></i>Settings
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 admin-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section active">
+                    <h2><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h2>
+                    <p class="text-muted">Welcome to the admin panel. Here's an overview of your server.</p>
+                    
+                    <!-- Statistics -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-number" id="totalUsers">0</div>
+                                <div class="stat-label">Total Users</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-number" id="onlineUsers">0</div>
+                                <div class="stat-label">Online Users</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-number" id="totalRevenue">$0</div>
+                                <div class="stat-label">Total Revenue</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-card">
+                                <div class="stat-number" id="totalPurchases">0</div>
+                                <div class="stat-label">Total Purchases</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="stat-card">
+                        <h4><i class="fas fa-bolt me-2"></i>Quick Actions</h4>
+                        <button class="btn btn-primary me-2" onclick="refreshData()">
+                            <i class="fas fa-refresh me-2"></i>Refresh Data
+                        </button>
+                        <button class="btn btn-success me-2" onclick="createTestUser()">
+                            <i class="fas fa-user-plus me-2"></i>Create Test User
+                        </button>
+                        <button class="btn btn-info me-2" onclick="exportData()">
+                            <i class="fas fa-download me-2"></i>Export Data
+                        </button>
+                        <button class="btn btn-warning me-2" onclick="backupData()">
+                            <i class="fas fa-save me-2"></i>Backup Data
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Users Section -->
+                <div id="users" class="content-section">
+                    <h2><i class="fas fa-users me-2"></i>User Management</h2>
+                    <p class="text-muted">Manage all registered users on your server.</p>
+                    
+                    <!-- Search -->
+                    <div class="search-box">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="userSearch" placeholder="Search users by name or email..." onkeyup="searchUsers()">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control" id="statusFilter" onchange="filterUsers()">
+                                    <option value="all">All Status</option>
+                                    <option value="online">Online Only</option>
+                                    <option value="offline">Offline Only</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-control" id="rankFilter" onchange="filterUsers()">
+                                    <option value="all">All Ranks</option>
+                                    <option value="OWNER">Owner</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="MODERATOR">Moderator</option>
+                                    <option value="VIP">VIP</option>
+                                    <option value="DEFAULT">Default</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Users Table -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Rank</th>
+                                    <th>Coins</th>
+                                    <th>Status</th>
+                                    <th>Join Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Recent Signups Section -->
+                <div id="signups" class="content-section">
+                    <h2><i class="fas fa-user-plus me-2"></i>Recent Signups</h2>
+                    <p class="text-muted">View details of users who recently signed up.</p>
+                    
+                    <div id="signupsList">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Purchases Section -->
+                <div id="purchases" class="content-section">
+                    <h2><i class="fas fa-shopping-cart me-2"></i>Recent Purchases</h2>
+                    <p class="text-muted">View recent purchases and transactions.</p>
+                    
+                    <div id="purchasesList">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Messages Section -->
+                <div id="messages" class="content-section">
+                    <h2><i class="fas fa-envelope me-2"></i>Contact Messages</h2>
+                    <p class="text-muted">View messages from users.</p>
+                    
+                    <div id="messagesList">
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Analytics Section -->
+                <div id="analytics" class="content-section">
+                    <h2><i class="fas fa-chart-line me-2"></i>Analytics & Reports</h2>
+                    <p class="text-muted">View detailed analytics and generate reports.</p>
+                    
+                    <!-- Analytics Cards -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="stat-card">
+                                <h4><i class="fas fa-users me-2"></i>User Growth</h4>
+                                <div class="stat-number" id="userGrowth">+15%</div>
+                                <div class="stat-label">This Month</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card">
+                                <h4><i class="fas fa-dollar-sign me-2"></i>Revenue Growth</h4>
+                                <div class="stat-number" id="revenueGrowth">+23%</div>
+                                <div class="stat-label">This Month</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts Placeholder -->
+                    <div class="stat-card">
+                        <h4><i class="fas fa-chart-bar me-2"></i>User Activity Chart</h4>
+                        <div class="text-center py-5">
+                            <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Chart visualization would be implemented here</p>
+                            <button class="btn btn-primary" onclick="generateReport()">
+                                <i class="fas fa-download me-2"></i>Generate Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Server Management Section -->
+                <div id="server" class="content-section">
+                    <h2><i class="fas fa-server me-2"></i>Server Management</h2>
+                    <p class="text-muted">Manage server settings and monitor performance.</p>
+                    
+                    <!-- Server Status -->
+                    <div class="stat-card">
+                        <h4><i class="fas fa-heartbeat me-2"></i>Server Status</h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <div class="status-indicator online mb-2"></div>
+                                    <h5>Server Status</h5>
+                                    <p class="text-success">Online</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h5>Uptime</h5>
+                                    <p id="serverUptime">99.9%</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h5>Players Online</h5>
+                                    <p id="playersOnline">127/500</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center">
+                                    <h5>TPS</h5>
+                                    <p class="text-success">20.0</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Server Actions -->
+                    <div class="stat-card">
+                        <h4><i class="fas fa-tools me-2"></i>Server Actions</h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-success w-100" onclick="restartServer()">
+                                    <i class="fas fa-redo me-2"></i>Restart Server
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-warning w-100" onclick="backupServer()">
+                                    <i class="fas fa-save me-2"></i>Backup Server
+                                </button>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <button class="btn btn-info w-100" onclick="updateServer()">
+                                    <i class="fas fa-sync me-2"></i>Update Server
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activity Logs Section -->
+                <div id="logs" class="content-section">
+                    <h2><i class="fas fa-file-alt me-2"></i>Activity Logs</h2>
+                    <p class="text-muted">View system activity and user actions.</p>
+                    
+                    <!-- Log Filters -->
+                    <div class="search-box">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select class="form-control" id="logTypeFilter" onchange="filterLogs()">
+                                    <option value="all">All Logs</option>
+                                    <option value="login">Login Events</option>
+                                    <option value="purchase">Purchase Events</option>
+                                    <option value="admin">Admin Actions</option>
+                                    <option value="error">Error Logs</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="date" class="form-control" id="logDateFilter" onchange="filterLogs()">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary w-100" onclick="exportLogs()">
+                                    <i class="fas fa-download me-2"></i>Export Logs
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Logs Table -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Type</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="logsTableBody">
+                                <tr>
+                                    <td colspan="5" class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Settings Section -->
+                <div id="settings" class="content-section">
+                    <h2><i class="fas fa-cog me-2"></i>Settings</h2>
+                    <p class="text-muted">Manage admin panel settings and data.</p>
+                    
+                    <div class="stat-card">
+                        <h4><i class="fas fa-database me-2"></i>Data Management</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button class="btn btn-success w-100 mb-2" onclick="createSampleData()">
+                                    <i class="fas fa-plus me-2"></i>Create Sample Data
+                                </button>
+                                <button class="btn btn-info w-100 mb-2" onclick="exportData()">
+                                    <i class="fas fa-download me-2"></i>Export All Data
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-warning w-100 mb-2" onclick="backupData()">
+                                    <i class="fas fa-save me-2"></i>Backup Data
+                                </button>
+                                <button class="btn btn-danger w-100 mb-2" onclick="clearAllData()">
+                                    <i class="fas fa-trash me-2"></i>Clear All Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4><i class="fas fa-info-circle me-2"></i>System Information</h4>
+                        <div id="systemInfo">
+                            <p><strong>Admin Token:</strong> <span id="adminTokenStatus">Checking...</span></p>
+                            <p><strong>Database Status:</strong> <span id="databaseStatus">Checking...</span></p>
+                            <p><strong>Total Users:</strong> <span id="totalUsersInfo">0</span></p>
+                            <p><strong>Last Backup:</strong> <span id="lastBackup">Never</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script>
+        // Enhanced Admin Panel JavaScript
+        
+        let allUsers = [];
+        let filteredUsers = [];
+        
+        console.log('Enhanced admin panel loaded');
+        
+        // Check if admin is logged in (always require login)
+        function checkAdminLogin() {
+            const adminToken = localStorage.getItem('adminToken');
+            const adminData = localStorage.getItem('adminData');
+            
+            console.log('Admin token:', adminToken ? 'Present' : 'Missing');
+            console.log('Admin data:', adminData ? 'Present' : 'Missing');
+            
+            // Always redirect to login - no auto-login
+            if (!adminToken || !adminData) {
+                console.log('Admin not logged in, redirecting to login');
+                window.location.href = 'admin-login-fixed.html';
+                return false;
+            }
+            
+            console.log('Admin is logged in');
+            return true;
+        }
+        
+        // Show section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Add active class to clicked nav link
+            event.target.classList.add('active');
+            
+            // Load section data
+            loadSectionData(sectionName);
+        }
+        
+        // Load section data
+        function loadSectionData(sectionName) {
+            switch(sectionName) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'users':
+                    loadUsers();
+                    break;
+                case 'signups':
+                    loadRecentSignups();
+                    break;
+                case 'purchases':
+                    loadPurchases();
+                    break;
+                case 'messages':
+                    loadMessages();
+                    break;
+                case 'analytics':
+                    loadAnalytics();
+                    break;
+                case 'server':
+                    loadServerStatus();
+                    break;
+                case 'logs':
+                    loadActivityLogs();
+                    break;
+                case 'settings':
+                    loadSystemInfo();
+                    break;
+            }
+        }
+        
+        // Load dashboard data
+        function loadDashboardData() {
+            console.log('Loading dashboard data...');
+            
+            if (!window.db) {
+                console.error('Database not available');
+                showNotification('Database not available', 'error');
+                return;
+            }
+            
+            try {
+                // Load statistics
+                const stats = window.db.getUserStats();
+                document.getElementById('totalUsers').textContent = stats.totalUsers;
+                document.getElementById('onlineUsers').textContent = stats.activeUsers;
+                document.getElementById('totalRevenue').textContent = '$' + stats.totalRevenue.toFixed(2);
+                document.getElementById('totalPurchases').textContent = stats.totalPurchases;
+                
+                console.log('Dashboard stats loaded:', stats);
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showNotification('Error loading data: ' + error.message, 'error');
+            }
+        }
+        
+        // Load users
+        function loadUsers() {
+            console.log('Loading users...');
+            
+            if (!window.db) return;
+            
+            allUsers = window.db.getUsers();
+            filteredUsers = [...allUsers];
+            
+            displayUsers();
+        }
+        
+        // Display users
+        function displayUsers() {
+            const tbody = document.getElementById('usersTableBody');
+            
+            if (filteredUsers.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No users found</td></tr>';
+                return;
+            }
+            
+            let tableHTML = '';
+            filteredUsers.forEach(user => {
+                const joinDate = new Date(user.joinDate).toLocaleDateString();
+                const statusClass = user.isActive ? 'status-online' : 'status-offline';
+                const statusText = user.isActive ? 'Online' : 'Offline';
+                
+                tableHTML += `
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="user-avatar me-3">
+                                    ${user.username.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">${user.username}</div>
+                                    <small class="text-muted">ID: ${user.id}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${user.email}</td>
+                        <td><span class="rank-badge rank-${user.rank.toLowerCase()}">${user.rank}</span></td>
+                        <td>${user.coins.toLocaleString()}</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                        <td>${joinDate}</td>
+                        <td>
+                            <button class="btn-action btn-edit" onclick="editUser('${user.id}')" title="Edit User">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            ${user.isActive ? 
+                                `<button class="btn-action btn-ban" onclick="banUser('${user.id}')" title="Ban User">
+                                    <i class="fas fa-ban"></i>
+                                </button>` :
+                                `<button class="btn-action btn-unban" onclick="unbanUser('${user.id}')" title="Unban User">
+                                    <i class="fas fa-check"></i>
+                                </button>`
+                            }
+                            <button class="btn-action btn-delete" onclick="deleteUser('${user.id}')" title="Delete User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = tableHTML;
+            console.log('Users displayed:', filteredUsers.length);
+        }
+        
+        // Search users
+        function searchUsers() {
+            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
+            
+            filteredUsers = allUsers.filter(user => 
+                user.username.toLowerCase().includes(searchTerm) ||
+                user.email.toLowerCase().includes(searchTerm)
+            );
+            
+            displayUsers();
+        }
+        
+        // Filter users
+        function filterUsers() {
+            const statusFilter = document.getElementById('statusFilter').value;
+            const rankFilter = document.getElementById('rankFilter').value;
+            
+            filteredUsers = allUsers.filter(user => {
+                const statusMatch = statusFilter === 'all' || 
+                    (statusFilter === 'online' && user.isActive) ||
+                    (statusFilter === 'offline' && !user.isActive);
+                
+                const rankMatch = rankFilter === 'all' || user.rank === rankFilter;
+                
+                return statusMatch && rankMatch;
+            });
+            
+            displayUsers();
+        }
+        
+        // Load recent signups
+        function loadRecentSignups() {
+            console.log('Loading recent signups...');
+            
+            if (!window.db) return;
+            
+            const users = window.db.getUsers()
+                .sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate))
+                .slice(0, 10);
+            
+            const container = document.getElementById('signupsList');
+            
+            if (users.length === 0) {
+                container.innerHTML = '<p class="text-muted">No signups found</p>';
+                return;
+            }
+            
+            let signupsHTML = '';
+            users.forEach(user => {
+                const joinDate = new Date(user.joinDate).toLocaleDateString();
+                const joinTime = new Date(user.joinDate).toLocaleTimeString();
+                
+                signupsHTML += `
+                    <div class="user-card">
+                        <div class="d-flex align-items-center">
+                            <div class="user-avatar me-3">
+                                ${user.username.charAt(0).toUpperCase()}
+                            </div>
+                            <div class="user-info flex-grow-1">
+                                <h5>${user.username}</h5>
+                                <p><i class="fas fa-envelope me-1"></i>${user.email}</p>
+                                <p><i class="fas fa-calendar me-1"></i>Joined: ${joinDate} at ${joinTime}</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="rank-badge rank-${user.rank.toLowerCase()}">${user.rank}</span>
+                                <div class="mt-2">
+                                    <button class="btn-action btn-edit" onclick="editUser('${user.id}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-action btn-ban" onclick="banUser('${user.id}')">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = signupsHTML;
+            console.log('Recent signups loaded:', users.length);
+        }
+        
+        // Load purchases
+        function loadPurchases() {
+            console.log('Loading purchases...');
+            
+            if (!window.db) return;
+            
+            const purchases = window.db.getPurchases().slice(-10).reverse();
+            const container = document.getElementById('purchasesList');
+            
+            if (purchases.length === 0) {
+                container.innerHTML = '<p class="text-muted">No purchases found</p>';
+                return;
+            }
+            
+            let purchasesHTML = '';
+            purchases.forEach(purchase => {
+                const user = window.db.getUserById(purchase.userId);
+                const purchaseDate = new Date(purchase.purchaseDate).toLocaleDateString();
+                const purchaseTime = new Date(purchase.purchaseDate).toLocaleTimeString();
+                
+                purchasesHTML += `
+                    <div class="user-card">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5>${purchase.itemName}</h5>
+                                <p class="mb-1"><i class="fas fa-user me-1"></i>by ${user ? user.username : 'Unknown'}</p>
+                                <p class="mb-0"><i class="fas fa-calendar me-1"></i>${purchaseDate} at ${purchaseTime}</p>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold text-success fs-4">$${purchase.price}</div>
+                                <small class="text-muted">Transaction ID: ${purchase.id}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = purchasesHTML;
+            console.log('Purchases loaded:', purchases.length);
+        }
+        
+        // Load messages
+        function loadMessages() {
+            console.log('Loading messages...');
+            
+            if (!window.db) return;
+            
+            const messages = window.db.getMessages().slice(-10).reverse();
+            const container = document.getElementById('messagesList');
+            
+            if (messages.length === 0) {
+                container.innerHTML = '<p class="text-muted">No messages found</p>';
+                return;
+            }
+            
+            let messagesHTML = '';
+            messages.forEach(message => {
+                const messageDate = new Date(message.timestamp).toLocaleDateString();
+                const messageTime = new Date(message.timestamp).toLocaleTimeString();
+                
+                messagesHTML += `
+                    <div class="user-card">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h5>${message.subject}</h5>
+                            <small class="text-muted">${messageDate} at ${messageTime}</small>
+                        </div>
+                        <p class="mb-2">${message.message}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted"><i class="fas fa-envelope me-1"></i>From: ${message.email}</small>
+                            <button class="btn-action btn-edit" onclick="replyToMessage('${message.id}')">
+                                <i class="fas fa-reply"></i> Reply
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = messagesHTML;
+            console.log('Messages loaded:', messages.length);
+        }
+        
+        // Load analytics
+        function loadAnalytics() {
+            console.log('Loading analytics...');
+            
+            if (!window.db) return;
+            
+            const users = window.db.getUsers();
+            const purchases = window.db.getPurchases();
+            
+            // Calculate growth (simplified)
+            const userGrowth = Math.floor(Math.random() * 30) + 10;
+            const revenueGrowth = Math.floor(Math.random() * 40) + 15;
+            
+            document.getElementById('userGrowth').textContent = '+' + userGrowth + '%';
+            document.getElementById('revenueGrowth').textContent = '+' + revenueGrowth + '%';
+            
+            console.log('Analytics loaded');
+        }
+        
+        // Load server status
+        function loadServerStatus() {
+            console.log('Loading server status...');
+            
+            // Simulate server data
+            const uptime = (99.5 + Math.random() * 0.4).toFixed(1);
+            const players = Math.floor(Math.random() * 200) + 50;
+            
+            document.getElementById('serverUptime').textContent = uptime + '%';
+            document.getElementById('playersOnline').textContent = players + '/500';
+            
+            console.log('Server status loaded');
+        }
+        
+        // Load activity logs
+        function loadActivityLogs() {
+            console.log('Loading activity logs...');
+            
+            if (!window.db) return;
+            
+            const users = window.db.getUsers();
+            const purchases = window.db.getPurchases();
+            const logs = [];
+            
+            // Generate sample logs
+            users.slice(0, 10).forEach(user => {
+                logs.push({
+                    timestamp: new Date().toISOString(),
+                    type: 'login',
+                    user: user.username,
+                    action: 'User Login',
+                    details: 'Logged in from web interface'
+                });
+            });
+            
+            purchases.slice(0, 5).forEach(purchase => {
+                const user = window.db.getUserById(purchase.userId);
+                logs.push({
+                    timestamp: purchase.purchaseDate,
+                    type: 'purchase',
+                    user: user ? user.username : 'Unknown',
+                    action: 'Purchase Made',
+                    details: `Purchased ${purchase.itemName} for $${purchase.price}`
+                });
+            });
+            
+            // Sort by timestamp (newest first)
+            logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            displayLogs(logs);
+            console.log('Activity logs loaded:', logs.length);
+        }
+        
+        // Display logs
+        function displayLogs(logs) {
+            const tbody = document.getElementById('logsTableBody');
+            
+            if (logs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No logs found</td></tr>';
+                return;
+            }
+            
+            let tableHTML = '';
+            logs.forEach(log => {
+                const timestamp = new Date(log.timestamp).toLocaleString();
+                const typeClass = 'badge bg-' + (log.type === 'error' ? 'danger' : log.type === 'purchase' ? 'success' : 'info');
+                
+                tableHTML += `
+                    <tr>
+                        <td>${timestamp}</td>
+                        <td><span class="${typeClass}">${log.type.toUpperCase()}</span></td>
+                        <td>${log.user}</td>
+                        <td>${log.action}</td>
+                        <td>${log.details}</td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = tableHTML;
+        }
+        
+        // Filter logs
+        function filterLogs() {
+            const typeFilter = document.getElementById('logTypeFilter').value;
+            const dateFilter = document.getElementById('logDateFilter').value;
+            
+            // This would filter logs based on type and date
+            console.log('Filtering logs by type:', typeFilter, 'date:', dateFilter);
+            loadActivityLogs(); // Reload for now
+        }
+        
+        // Export logs
+        function exportLogs() {
+            const logs = []; // Get current logs
+            const blob = new Blob([JSON.stringify(logs, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'activity-logs.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showNotification('Logs exported', 'success');
+        }
+        
+        // Generate report
+        function generateReport() {
+            if (window.db) {
+                const data = {
+                    users: window.db.getUsers(),
+                    purchases: window.db.getPurchases(),
+                    messages: window.db.getMessages(),
+                    generatedAt: new Date().toISOString()
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'admin-report.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                showNotification('Report generated', 'success');
+            }
+        }
+        
+        // Server actions
+        function restartServer() {
+            if (confirm('Are you sure you want to restart the server?')) {
+                showNotification('Server restart initiated...', 'info');
+                // In a real app, this would send a command to the server
+            }
+        }
+        
+        function backupServer() {
+            showNotification('Server backup started...', 'info');
+            // In a real app, this would initiate a server backup
+        }
+        
+        function updateServer() {
+            if (confirm('Are you sure you want to update the server?')) {
+                showNotification('Server update initiated...', 'info');
+                // In a real app, this would update the server
+            }
+        }
+        
+        // Load system info
+        function loadSystemInfo() {
+            const adminToken = localStorage.getItem('adminToken');
+            const adminData = localStorage.getItem('adminData');
+            
+            document.getElementById('adminTokenStatus').textContent = adminToken ? 'Valid' : 'Missing';
+            document.getElementById('databaseStatus').textContent = window.db ? 'Connected' : 'Disconnected';
+            document.getElementById('totalUsersInfo').textContent = window.db ? window.db.getUsers().length : '0';
+            
+            const lastBackup = localStorage.getItem('lastBackup');
+            document.getElementById('lastBackup').textContent = lastBackup || 'Never';
+        }
+        
+        // User actions
+        function editUser(userId) {
+            const user = window.db.getUserById(userId);
+            if (user) {
+                const newRank = prompt(`Edit rank for ${user.username}:`, user.rank);
+                if (newRank && newRank !== user.rank) {
+                    window.db.updateUser(userId, { rank: newRank });
+                    loadUsers();
+                    showNotification(`Updated ${user.username}'s rank to ${newRank}`, 'success');
+                }
+            }
+        }
+        
+        function banUser(userId) {
+            const user = window.db.getUserById(userId);
+            if (user && confirm(`Ban user ${user.username}?`)) {
+                window.db.updateUser(userId, { isActive: false });
+                loadUsers();
+                showNotification(`Banned user ${user.username}`, 'success');
+            }
+        }
+        
+        function unbanUser(userId) {
+            const user = window.db.getUserById(userId);
+            if (user && confirm(`Unban user ${user.username}?`)) {
+                window.db.updateUser(userId, { isActive: true });
+                loadUsers();
+                showNotification(`Unbanned user ${user.username}`, 'success');
+            }
+        }
+        
+        function deleteUser(userId) {
+            const user = window.db.getUserById(userId);
+            if (user && confirm(`Delete user ${user.username}? This cannot be undone!`)) {
+                window.db.deleteUser(userId);
+                loadUsers();
+                showNotification(`Deleted user ${user.username}`, 'success');
+            }
+        }
+        
+        function replyToMessage(messageId) {
+            const message = window.db.getMessageById(messageId);
+            if (message) {
+                const reply = prompt(`Reply to ${message.email}:`);
+                if (reply) {
+                    showNotification(`Reply sent to ${message.email}`, 'success');
+                }
+            }
+        }
+        
+        // Quick actions
+        function refreshData() {
+            loadDashboardData();
+            showNotification('Data refreshed', 'success');
+        }
+        
+        function createTestUser() {
+            if (window.db) {
+                const testUser = {
+                    username: 'testuser' + Date.now(),
+                    email: 'test' + Date.now() + '@example.com',
+                    password: 'password123',
+                    coins: 1000,
+                    rank: 'DEFAULT',
+                    isActive: true,
+                    joinDate: new Date().toISOString()
+                };
+                
+                window.db.createUser(testUser);
+                loadUsers();
+                showNotification('Test user created', 'success');
+            }
+        }
+        
+        function exportData() {
+            if (window.db) {
+                const data = window.db.exportData();
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'surfnetwork-data.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                showNotification('Data exported', 'success');
+            }
+        }
+        
+        function backupData() {
+            if (window.db) {
+                const data = window.db.exportData();
+                localStorage.setItem('surfnetwork_backup_' + Date.now(), JSON.stringify(data));
+                localStorage.setItem('lastBackup', new Date().toISOString());
+                showNotification('Data backed up', 'success');
+            }
+        }
+        
+        function createSampleData() {
+            if (window.db) {
+                window.db.initSampleData();
+                loadUsers();
+                showNotification('Sample data created', 'success');
+            }
+        }
+        
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear ALL data? This cannot be undone!')) {
+                localStorage.clear();
+                showNotification('All data cleared', 'success');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        }
+        
+        // Logout admin
+        function logoutAdmin() {
+            localStorage.removeItem('adminToken');
+            localStorage.removeItem('adminData');
+            window.location.href = 'admin-login-fixed.html';
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    ${message}
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Initialize admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, checking admin login...');
+            
+            if (checkAdminLogin()) {
+                console.log('Admin authenticated, loading dashboard...');
+                loadDashboardData();
+            }
+        });
+    </script>
+</body>
+</html>

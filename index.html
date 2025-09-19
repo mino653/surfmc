@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surfnetwork - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Surfnetwork
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="updates.html">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html" id="loginNavLink">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-access.html" style="color: #ffc107;">
+                            <i class="fas fa-shield-alt me-1"></i>Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="hero-title mb-4">Welcome to Surfnetwork</h1>
+                        <p class="hero-subtitle mb-5">Join thousands of players in the ultimate Surfnetwork experience. Build, explore, and survive together!</p>
+                        
+                        <!-- Server Status -->
+                        <div class="server-status mb-4">
+                            <div class="status-indicator online">
+                                <i class="fas fa-circle"></i>
+                                <span>Server Online</span>
+                            </div>
+                            <div class="player-count">
+                                <i class="fas fa-users"></i>
+                                <span id="playerCount">127/500 Players</span>
+                            </div>
+                        </div>
+
+                        <!-- IP Reveal Button -->
+                        <div class="ip-section mb-4">
+                            <button class="btn btn-primary btn-lg ip-reveal-btn" id="ipRevealBtn">
+                                <i class="fas fa-server me-2"></i>Click to Reveal Server IP
+                            </button>
+                            <div class="ip-display d-none" id="ipDisplay">
+                                <div class="ip-box">
+                                    <span class="ip-text">play.Surfnetwork.xyz:25573</span>
+                                    <button class="btn btn-outline-light btn-sm ms-2" onclick="copyIP()">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-buttons">
+                            <a href="help.html" class="btn btn-outline-light btn-lg me-3">
+                                <i class="fas fa-question-circle me-2"></i>How to Join
+                            </a>
+                            <a href="store.html" class="btn btn-success btn-lg">
+                                <i class="fas fa-shopping-cart me-2"></i>Visit Store
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="section-title">Why Choose Our Server?</h2>
+                    <p class="section-subtitle">Experience the best Surfnetwork has to offer</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>24/7 Protection</h4>
+                        <p>Advanced anti-grief protection keeps your builds safe around the clock.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Active Community</h4>
+                        <p>Join hundreds of friendly players in our welcoming community.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4>Custom Features</h4>
+                        <p>Unique plugins and custom content you won't find anywhere else.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube me-2"></i>Surfnetwork</h5>
+                    <p>The ultimate Surfnetwork experience awaits you.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mt-2">&copy; 2025 Surfnetwork. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="terms.html" class="text-light me-3">Terms of Service</a>
+                        <a href="privacy.html" class="text-light">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+    <script src="typing-animation.js"></script>
+</body>
+</html>

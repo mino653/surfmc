@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Surfnetwork</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Surfnetwork
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="updates.html">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin-login.html" style="color: #ffc107;">
+                            <i class="fas fa-shield-alt me-1"></i>Admin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="profile-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-3 text-center">
+                                <div class="profile-avatar">
+                                    <img id="userAvatar" src="https://via.placeholder.com/150/4CAF50/ffffff?text=👤" alt="Profile Avatar" class="rounded-circle">
+                                    <button class="btn btn-sm btn-primary avatar-upload-btn" onclick="changeAvatar()">
+                                        <i class="fas fa-camera"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <h1 class="profile-username" id="profileUsername">Loading...</h1>
+                                <p class="profile-email" id="profileEmail">Loading...</p>
+                                <div class="profile-stats">
+                                    <div class="row">
+                                        <div class="col-md-3 col-6">
+                                            <div class="stat-card">
+                                                <div class="stat-number" id="userRank">DEFAULT</div>
+                                                <div class="stat-label">Current Rank</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6">
+                                            <div class="stat-card">
+                                                <div class="stat-number" id="userCoins">0</div>
+                                                <div class="stat-label">Coins</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6">
+                                            <div class="stat-card">
+                                                <div class="stat-number" id="totalPurchases">0</div>
+                                                <div class="stat-label">Purchases</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-6">
+                                            <div class="stat-card">
+                                                <div class="stat-number" id="memberSince">-</div>
+                                                <div class="stat-label">Member Since</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="profile-sidebar">
+                        <div class="list-group">
+                            <a href="#account" class="list-group-item list-group-item-action active" data-tab="account">
+                                <i class="fas fa-user me-2"></i>Account Details
+                            </a>
+                            <a href="#purchases" class="list-group-item list-group-item-action" data-tab="purchases">
+                                <i class="fas fa-shopping-bag me-2"></i>Purchase History
+                            </a>
+                            <a href="#settings" class="list-group-item list-group-item-action" data-tab="settings">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </a>
+                            <a href="#security" class="list-group-item list-group-item-action" data-tab="security">
+                                <i class="fas fa-shield-alt me-2"></i>Security
+                            </a>
+                            <a href="#notifications" class="list-group-item list-group-item-action" data-tab="notifications">
+                                <i class="fas fa-bell me-2"></i>Notifications
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-lg-9">
+                    <!-- Account Details Tab -->
+                    <div class="tab-content active" id="account">
+                        <div class="profile-card">
+                            <h3><i class="fas fa-user me-2"></i>Account Details</h3>
+                            <form id="accountForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="editUsername" readonly>
+                                        <small class="text-muted">Username cannot be changed</small>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="editEmail">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="editFirstName" placeholder="Enter your first name">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="editLastName" placeholder="Enter your last name">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Bio</label>
+                                    <textarea class="form-control" id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Country</label>
+                                        <select class="form-control" id="editCountry">
+                                            <option value="">Select Country</option>
+                                            <option value="US">United States</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="CA">Canada</option>
+                                            <option value="AU">Australia</option>
+                                            <option value="DE">Germany</option>
+                                            <option value="FR">France</option>
+                                            <option value="JP">Japan</option>
+                                            <option value="OTHER">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Timezone</label>
+                                        <select class="form-control" id="editTimezone">
+                                            <option value="">Select Timezone</option>
+                                            <option value="UTC">UTC</option>
+                                            <option value="EST">Eastern Time</option>
+                                            <option value="PST">Pacific Time</option>
+                                            <option value="GMT">Greenwich Mean Time</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Save Changes
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Purchase History Tab -->
+                    <div class="tab-content" id="purchases">
+                        <div class="profile-card">
+                            <h3><i class="fas fa-shopping-bag me-2"></i>Purchase History</h3>
+                            <div id="purchasesList">
+                                <div class="text-center py-5">
+                                    <i class="fas fa-shopping-cart fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted">Loading purchase history...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab -->
+                    <div class="tab-content" id="settings">
+                        <div class="profile-card">
+                            <h3><i class="fas fa-cog me-2"></i>Settings</h3>
+                            <form id="settingsForm">
+                                <h5>Privacy Settings</h5>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="profilePublic" checked>
+                                    <label class="form-check-label" for="profilePublic">
+                                        Make profile public
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="showPurchases">
+                                    <label class="form-check-label" for="showPurchases">
+                                        Show purchase history to other players
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-4">
+                                    <input class="form-check-input" type="checkbox" id="showStats" checked>
+                                    <label class="form-check-label" for="showStats">
+                                        Show statistics on profile
+                                    </label>
+                                </div>
+
+                                <h5>Communication Preferences</h5>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                    <label class="form-check-label" for="emailNotifications">
+                                        Email notifications
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="newsletterSubscription" checked>
+                                    <label class="form-check-label" for="newsletterSubscription">
+                                        Newsletter subscription
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch mb-4">
+                                    <input class="form-check-input" type="checkbox" id="promotionalEmails">
+                                    <label class="form-check-label" for="promotionalEmails">
+                                        Promotional emails
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Save Settings
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Security Tab -->
+                    <div class="tab-content" id="security">
+                        <div class="profile-card">
+                            <h3><i class="fas fa-shield-alt me-2"></i>Security</h3>
+                            
+                            <!-- Change Password -->
+                            <h5>Change Password</h5>
+                            <form id="passwordForm" class="mb-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Current Password</label>
+                                    <input type="password" class="form-control" id="currentPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">New Password</label>
+                                    <input type="password" class="form-control" id="newPassword" required minlength="6">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Confirm New Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                                <button type="submit" class="btn btn-warning">
+                                    <i class="fas fa-key me-2"></i>Change Password
+                                </button>
+                            </form>
+
+                            <!-- Login History -->
+                            <h5>Recent Login Activity</h5>
+                            <div id="loginHistory">
+                                <div class="login-activity-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="fas fa-desktop me-2"></i>
+                                            <span>Current Session</span>
+                                        </div>
+                                        <small class="text-success">Active now</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Tab -->
+                    <div class="tab-content" id="notifications">
+                        <div class="profile-card">
+                            <h3><i class="fas fa-bell me-2"></i>Notifications</h3>
+                            <div id="notificationsList">
+                                <div class="notification-item">
+                                    <div class="notification-icon bg-success">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <h6>Welcome to the server!</h6>
+                                        <p>Your account has been successfully created.</p>
+                                        <small class="text-muted">Just now</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube me-2"></i>Surfnetwork</h5>
+                    <p>The ultimate Surfnetwork experience awaits you.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mt-2">&copy; 2025 Surfnetwork. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="terms.html" class="text-light me-3">Terms of Service</a>
+                        <a href="privacy.html" class="text-light">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

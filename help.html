@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Surfnetwork</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Surfnetwork
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="updates.html">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="help.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Help Section -->
+    <section class="help-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h1 class="section-title">Help Center</h1>
+                    <p class="section-subtitle">Everything you need to know to get started</p>
+                </div>
+            </div>
+
+            <!-- Getting Started -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-rocket me-2"></i>Getting Started</h2>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="help-card">
+                        <div class="help-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h4>1. Install Minecraft</h4>
+                        <p>Make sure you have Minecraft Java Edition installed on your computer. You can purchase it from the official Minecraft website.</p>
+                        <a href="https://minecraft.net" target="_blank" class="btn btn-primary btn-sm">
+                            <i class="fas fa-external-link-alt me-2"></i>Get Minecraft
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="help-card">
+                        <div class="help-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h4>2. Connect to Server</h4>
+                        <p>Open Minecraft, go to Multiplayer, click "Add Server", and enter our server IP address.</p>
+                        <div class="mt-3">
+                            <strong>Server IP:</strong>
+                            <code class="bg-light p-2 rounded d-block mt-1">play.yourserver.com</code>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="help-card">
+                        <div class="help-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h4>3. Create Account</h4>
+                        <p>Register on our website to access exclusive features, make purchases, and track your progress.</p>
+                        <a href="login.html" class="btn btn-success btn-sm">
+                            <i class="fas fa-user-plus me-2"></i>Sign Up Now
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="help-card">
+                        <div class="help-icon">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <h4>4. Start Playing</h4>
+                        <p>Once connected, follow the spawn tutorial and start exploring our amazing worlds and features!</p>
+                        <div class="mt-3">
+                            <strong>Spawn Command:</strong>
+                            <code class="bg-light p-2 rounded d-block mt-1">/spawn</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server Commands -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-terminal me-2"></i>Essential Commands</h2>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="help-card">
+                        <h4>Basic Commands</h4>
+                        <div class="command-list">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/spawn</code>
+                                <span class="text-muted small">Teleport to spawn</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/sethome</code>
+                                <span class="text-muted small">Set your home location</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/home</code>
+                                <span class="text-muted small">Teleport to your home</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/tpa [player]</code>
+                                <span class="text-muted small">Request teleport to player</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <code>/balance</code>
+                                <span class="text-muted small">Check your money</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="help-card">
+                        <h4>Advanced Commands</h4>
+                        <div class="command-list">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/warp [name]</code>
+                                <span class="text-muted small">Teleport to warp location</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/shop</code>
+                                <span class="text-muted small">Open the server shop</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/jobs</code>
+                                <span class="text-muted small">View available jobs</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <code>/auction</code>
+                                <span class="text-muted small">Access auction house</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <code>/vote</code>
+                                <span class="text-muted small">Vote for the server</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="row mb-5">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-question-circle me-2"></i>Frequently Asked Questions</h2>
+                </div>
+                <div class="col-12">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq1">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                    What version of Minecraft do I need?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Our server runs on Minecraft Java Edition version 1.20.4. Make sure you have the correct version installed to connect successfully.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                    How do I claim land?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Use a golden shovel to select two corners of your desired area, then type <code>/claim</code>. You start with 100 claim blocks and earn more by playing. Use <code>/trust [player]</code> to allow others to build in your claim.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                    How do I earn money?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    There are several ways to earn money: complete jobs (<code>/jobs</code>), sell items at the shop (<code>/shop</code>), participate in events, vote for the server (<code>/vote</code>), or trade with other players.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq4">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                    What are the server rules?
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>No griefing or stealing</li>
+                                        <li>Be respectful to all players</li>
+                                        <li>No cheating or hacking</li>
+                                        <li>Keep chat family-friendly</li>
+                                        <li>No advertising other servers</li>
+                                        <li>Follow staff instructions</li>
+                                    </ul>
+                                    Breaking rules may result in warnings, mutes, or bans.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq5">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                                    How do I report a player?
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    You can report players in-game using <code>/report [player] [reason]</code> or contact staff on our Discord server. Make sure to provide evidence such as screenshots or video if possible.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faq6">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                                    Can I use mods?
+                                </button>
+                            </h2>
+                            <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    We allow certain client-side mods like Optifine, JEI, and minimap mods. However, any mods that give unfair advantages (x-ray, auto-clickers, etc.) are prohibited and will result in a ban.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Support -->
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mb-4"><i class="fas fa-headset me-2"></i>Need More Help?</h2>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="help-card text-center">
+                        <div class="help-icon mx-auto">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <h4>Discord Support</h4>
+                        <p>Join our Discord server for real-time help from staff and community members.</p>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fab fa-discord me-2"></i>Join Discord
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="help-card text-center">
+                        <div class="help-icon mx-auto">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>Contact Form</h4>
+                        <p>Send us a message and we'll get back to you as soon as possible.</p>
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <i class="fas fa-envelope me-2"></i>Send Message
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="help-card text-center">
+                        <div class="help-icon mx-auto">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Wiki & Guides</h4>
+                        <p>Detailed guides and documentation for all server features.</p>
+                        <a href="#" class="btn btn-info">
+                            <i class="fas fa-book me-2"></i>View Wiki
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-envelope me-2"></i>Contact Support</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <select class="form-control" name="subject" required>
+                                <option value="">Select a topic</option>
+                                <option value="technical">Technical Issue</option>
+                                <option value="account">Account Problem</option>
+                                <option value="billing">Billing Question</option>
+                                <option value="report">Report Player</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" name="message" rows="4" required placeholder="Please describe your issue or question in detail..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-2"></i>Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube me-2"></i>Surfnetwork</h5>
+                    <p>The ultimate Surfnetwork experience awaits you.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mt-2">&copy; 2025 Surfnetwork. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="terms.html" class="text-light me-3">Terms of Service</a>
+                        <a href="privacy.html" class="text-light">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
