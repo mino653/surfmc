@@ -65,7 +65,7 @@ class SimpleDatabase {
             this.createUser({
                 username: 'admin',
                 email: 'admin@surfnetwork.com',
-                password: 'admin123456', // In real app, this would be hashed
+                password: 'Adminsurfnetwork', // In real app, this would be hashed
                 role: 'admin',
                 rank: 'OWNER',
                 coins: 999999,
