@@ -43,14 +43,19 @@ EQuery(function () {
             body: raw,
             redirect: 'follow'
         };
-        let response = await(await fetch(`https://surfnetwork-api.onrender.com/register/request_confirm_email?user_id=${getState().userdata.id}`, requestOptions)).json().catch(e => {
-            prompt.show()
-                .addClass('error')
-                .text('An error occured while processing your request');
-            spinner.remove();
-            submitBtn.removeAttr('disabled');
-            throw new Error(e)
-        });
+        let response = await(await fetch(`https://surfnetwork-api.onrender.com/register/request_confirm_email?user_id=${getState().userdata.id}`, requestOptions).catch(e => {
+                spinner.find('e-spinner').remove();
+                prompt.show()
+                    .addClass('error')
+                    .removeClass('info')
+                    .text('An error occured while processing your request');
+                this.disabled = false;
+                throw new Error(e);
+            })).json().catch(e => {
+                spinner.find('e-spinner').remove();
+                this.disabled = false;
+                throw new Error(e);
+            });
         
         console.log(response)
         
@@ -106,10 +111,14 @@ EQuery(function () {
                 body: raw,
                 redirect: 'follow'
             };
-            let response = await(await fetch(`https://ominous-space-enigma-q496v9rxwr929956-5729.app.github.dev/register/confirm_email?user_id=${getState().userdata.id}&email_code=${codeField.val()}`, requestOptions)).json().catch(e => {
-                spinner.remove();
-                _this.disabled = false;
-                throw new Error(e)
+            let response = await(await fetch(`https://surfnetwork-api.onrender.com/register/confirm_email?user_id=${getState().userdata.id}&email_code=${codeField.val()}`, requestOptions).catch(e => {
+                spinner.find('e-spinner').remove();
+                this.disabled = false;
+                throw new Error(e);
+            })).json().catch(e => {
+                spinner.find('e-spinner').remove();
+                this.disabled = false;
+                throw new Error(e);
             });
 
             spinner.remove();
