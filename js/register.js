@@ -126,7 +126,7 @@ EQuery(function () {
         e.preventDefault();
 
         if (validpsw && equalpsw) {
-            if (!termsCheckbox [0].checked) {
+            if (!termsCheckbox[0].checked) {
                 EQuery(termsCheckbox[0].parentElement).removeClass('shake').addClass('shake');
                 return;
             }

@@ -15,6 +15,9 @@ EQuery(function () {
                 .append([EQuery.elemt('i', null, 'fas fa-user me-2'), userdata.username]);
         }
     });
+
+    const ipRevealBtn = EQuery('#ipRevealBtn');
+    const ipDisplay = EQuery('#ipDisplay')
     
     function showUserMenu(e) {
         e.preventDefault();
@@ -77,7 +80,7 @@ EQuery(function () {
             throw new Error(e);
         });
         
-        EQuery('.ip-text').text(response.ip);
+        ipDisplay.find('.ip-text').text(response.ip);
 
         ipRevealBtn.removeClass('loading');
         ipRevealBtn.hide()
