@@ -30,7 +30,7 @@ function setState(newState) {
 }
 
 function logout() {
-    state.logged_in = false;
+    clear();
     reload();
 };
 
@@ -52,7 +52,7 @@ function clear() {
 };
 
 function redirect(href) {
-    window.location = href;
+    setTimeout(() => window.location = href, 2000);
 }
 
 export {
