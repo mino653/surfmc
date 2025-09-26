@@ -21,7 +21,7 @@ EQuery(function () {
     cpswField.attr({type: canShowPsw ? 'text': 'password'});
     
     getDB(state => {
-        if (state.userdata == undefined) redirect('./index.html');
+        if (state.userdata !== undefined && state.userdata.id !== undefined) redirect('./index.html');
     });
 
     function validPsw(input) {
