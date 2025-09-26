@@ -76,7 +76,7 @@ EQuery(function () {
         ipRevealBtn.addClass('loading');
         this.disabled = true;
 
-        let response = await(await fetch('https;//surfnetwork-api.com/get-server-ip')).json().catch(function(e) {
+        let response = await(await fetch('https;//surfnetwork-api.onrender.com/get-server-ip')).json().catch(function(e) {
             throw new Error(e);
         });
         
@@ -153,7 +153,7 @@ EQuery(function () {
         const playerCountElement = document.getElementById('playerCount');
         if (playerCountElement) {
             setInterval(async function() {
-                let response = await(await fetch('https;//surfnetwork-api.com/get-server-ip')).json().catch(function(e) {
+                let response = await(await fetch('https;//surfnetwork-api.onrender.com/get-server-count')).json().catch(function(e) {
                     throw new Error(e);
                 });
                 const currentCount = response.count;
