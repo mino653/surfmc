@@ -1,0 +1,126 @@
+.admin-login-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-login-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.admin-logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-logo i {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 15px;
+}
+
+.admin-logo h2 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.admin-logo p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.form-floating {
+    margin-bottom: 20px;
+}
+
+.form-floating input {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 15px;
+}
+
+.form-floating input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-admin-login {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-admin-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.admin-features {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #e9ecef;
+}
+
+.admin-features h6 {
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.feature-item i {
+    color: #667eea;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.back-to-site {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-to-site a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-to-site a:hover {
+    text-decoration: underline;
+}
+
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, .3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
