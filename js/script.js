@@ -3,7 +3,7 @@ import {
 } from './util.js';
 import './equery.js';
 
-EQuery(function () {
+EQuery(async function () {
     let userdata;
     getDB(state => {
         if (state.userdata !== undefined) {
@@ -71,6 +71,12 @@ EQuery(function () {
             });
         }, 100);
     }
+
+    let response = await(await fetch('https://surfnetwork-api.onrender.com/get-server-ip')).json().catch(function(e) {
+        throw new Error(e);
+    });
+        
+    EQuery('#ip').text(response.ip);
 
     ipRevealBtn.click(async function() {
         let spinner = EQuery(this.parentElement).spinner();
