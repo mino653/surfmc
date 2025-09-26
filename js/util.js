@@ -10,9 +10,8 @@ localDB.init(() => {
 });
 
 function fromDB(_state) {
-    if (_state === undefined) _state = {};
-    state = _state;
-    save(state);
+    state = _state || {};
+    setTimeout(() => save(state));
 }
 
 function getDB(cb) {
