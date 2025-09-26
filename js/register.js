@@ -8,7 +8,7 @@ EQuery(function () {
     let pswField = signupForm.find('#pswInput');
     let cpswField = signupForm.find('#cpswInput');
     let showPsw = signupForm.find('.togglePsw');
-    let termsCheckbox = signupForm.find('#termsCheckbox'); 
+    let termsCheckbox = signupForm.find('#agrerTerms'); 
     let subCheckbox = signupForm.find('#subCheckbox');
     let submitBtn = signupForm.find('button[type=submit]');
     let pswValidateBox = signupForm.find('#pswValidateBox');
