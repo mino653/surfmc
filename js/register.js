@@ -125,7 +125,7 @@ EQuery(function () {
     submitBtn.click(async function(e) {
         e.preventDefault();
 
-        if (validpsw && equalpsw) {
+        if (validpsw && equalpsw && termsCheckbox[0].checked) {
             let spinner = signupForm.find('.spinner-outer').spinner();
             this.disabled = true;
             
@@ -133,7 +133,7 @@ EQuery(function () {
                 "username": usernameField.val(),
                 "email": emailField.val(),
                 "psw": pswField.val(),
-                "sub": subCheckbox.val()
+                "sub": subCheckbox[0].checked
             };
 
             let headers = new Headers();
