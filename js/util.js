@@ -58,5 +58,5 @@ function redirect(href) {
 }
 
 export {
-    getState, getDB, setState, redirect
+    getState, getDB, setState, redirect, clear
 };
