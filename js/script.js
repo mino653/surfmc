@@ -72,11 +72,22 @@ EQuery(async function () {
         }, 100);
     }
 
-    let response = await(await fetch('https://surfnetwork-api.onrender.com/get-server-ip')).json().catch(function(e) {
-        throw new Error(e);
-    });
+    setInterval(getStats, 30000);
+
+    async function getStats() {
+        let response = await(await fetch('https://surfnetwork-api.onrender.com/get-server-stats')).json().catch(function(e) {
+            throw new Error(e);
+        });
         
-    EQuery('#ip').text(response.ip);
+        EQuery('#ip').text(response.ip);
+        EQuery('#serverStatus').addClass(response.online ? 'bg-success' : 'bg-fail').text(response.online ? 'Online' : 'Offline');
+        EQuery('#playersCount').text(response.count + '/' + response.max);
+        EQuery('#serverVersion').text(response.version);
+        EQuery('#serverUptime').text(response.uptime);
+        EQuery('#totalPlayers').text(response.total);
+        EQuery('#playetCount').text(response.count);
+        EQuery('#playersAvg').text(response.average);
+    }
 
     ipRevealBtn.click(async function() {
         let spinner = EQuery(this.parentElement).spinner();
