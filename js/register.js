@@ -8,7 +8,7 @@ EQuery(function () {
     let pswField = signupForm.find('#pswInput');
     let cpswField = signupForm.find('#cpswInput');
     let showPsw = signupForm.find('.togglePsw');
-    let termsCheckbox = signupForm.find('#termsCheckbox');
+    let termsCheckbox = signupForm.find('#termsCheckbox'); 
     let subCheckbox = signupForm.find('#subCheckbox');
     let submitBtn = signupForm.find('button[type=submit]');
     let pswValidateBox = signupForm.find('#pswValidateBox');
@@ -125,7 +125,11 @@ EQuery(function () {
     submitBtn.click(async function(e) {
         e.preventDefault();
 
-        if (validpsw && equalpsw && termsCheckbox[0].checked) {
+        if (validpsw && equalpsw) {
+            if (!termsCheckbox [0].checked) {
+                EQuery(termsCheckbox[0].parentElement).removeClass('shake').addClass('shake');
+                return;
+            }
             let spinner = signupForm.find('.spinner-outer').spinner();
             this.disabled = true;
             
