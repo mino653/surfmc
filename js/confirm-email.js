@@ -88,7 +88,7 @@ EQuery(function () {
         e.preventDefault();
 
         if (codeField.val() !== '') {
-            let spinner = verifyForm.find('.spinner-outer').spinner();
+            let spinner = verifyForm.find('.spinner-outer').removeChildren().spinner();
             let _this = this;
             this.disabled = true;
 

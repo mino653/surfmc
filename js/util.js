@@ -49,7 +49,7 @@ function save(state, cb) {
 };
 
 function clear() {
-    localDB.clear();
+    // localDB.clear();
 };
 
 function redirect(href) {

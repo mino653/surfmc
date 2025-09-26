@@ -130,7 +130,7 @@ EQuery(function () {
                 EQuery(termsCheckbox[0].parentElement).removeClass('shake').addClass('shake');
                 return;
             }
-            let spinner = signupForm.find('.spinner-outer').spinner();
+            let spinner = signupForm.find('.spinner-outer').removeChildren().spinner();
             this.disabled = true;
             
             let requestJSON = {

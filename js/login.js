@@ -27,7 +27,7 @@ EQuery(function () {
     submitBtn.click(async function(e) {
         e.preventDefault();
 
-        let spinner = loginForm.find('.spinner-outer').spinner();
+        let spinner = loginForm.find('.spinner-outer').removeChildren().spinner();
         this.disabled = true;
 
         let requestJSON = {
