@@ -65,7 +65,7 @@ EQuery(function () {
     }
     
     function startCountdown() {
-        let countdown = 3;
+        let countdown = 30;
         
         resendCountdown.show();
         resendEmail.hide();
@@ -111,8 +111,6 @@ EQuery(function () {
                 _this.disabled = false;
                 throw new Error(e)
             });
-            
-            console.log(response)
 
             spinner.remove();
             this.disabled = false;
@@ -120,11 +118,12 @@ EQuery(function () {
             if (response.error === undefined && response.detail === undefined && response.status == 'success') {
                 let state = getState();
                 state.userdata = response.userdata;
-                setState(state);
-                prompt.hide()
-                    .removeClass('error')
-                    .text('');
-                redirect('./index.html');
+                setState(state, function () {
+                    prompt.hide()
+                        .removeClass('error')
+                        .text('');
+                    redirect('./index.html');
+                });
             } else {
                 prompt.show()
                     .addClass('error')

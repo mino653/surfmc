@@ -57,12 +57,11 @@ EQuery(function () {
         this.disabled = false; console.log(response)
 
         if (response.status === 'success') {
-            let state = getState();
             clear()
             prompt.hide()
                 .removeClass('error')
                 .text('');
-            setTimeout(() => redirect('./index.html'));
+            setTimeout(() => redirect('./index.html'), 20);
         } else {
             prompt.show()
             .addClass('error')

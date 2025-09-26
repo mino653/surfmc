@@ -60,12 +60,13 @@ EQuery(function () {
         if (response.detail === undefined) {
             let state = getState();
             state.userdata = response;
-            setState(state);
-            prompt.hide()
-                .removeClass('error')
-                .text('');
-            if (!state.userdata.confirm_email) redirect('./confirm-email.html');
-            else redirect('./index.html');
+            setState(state, function () {
+                prompt.hide()
+                    .removeClass('error')
+                    .text('');
+                if (!state.userdata.confirm_email) redirect('./confirm-email.html');
+                else redirect('./index.html');
+            });
         } else {
             prompt.show()
             .addClass('error')

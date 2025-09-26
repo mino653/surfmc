@@ -160,11 +160,12 @@ EQuery(function () {
             if (response.error === undefined) {
                 let state = getState();
                 state.userdata = response;
-                setState(state);
-                prompt.hide()
-                    .removeClass('error')
-                    .text('');
-                redirect('./confirm-email.html');
+                setState(state, function () {
+                    prompt.hide()
+                        .removeClass('error')
+                        .text('');
+                    redirect('./confirm-email.html');
+                });
             } else {
                 prompt.show()
                     .addClass('error')

@@ -24,9 +24,9 @@ function getState() {
     return state;
 }
 
-function setState(newState) {
+function setState(newState, cb) {
     state = newState;
-    save(state);
+    save(state, cb);
 }
 
 function logout() {
@@ -39,11 +39,12 @@ function reload() {
     app.save();
     setTimeout(function () {window.location.reload()}, 2000)};
 
-function save(state) {
+function save(state, cb) {
     let timeout;
     clearTimeout(timeout);
     timeout = setTimeout(function() {
         localDB.set(state);
+        cb()
     }, 100);
 };
 
