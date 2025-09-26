@@ -1,5 +1,5 @@
 import './equery.js';
-import { getState, setState, redirect } from './util.js';
+import { getState, getDB, setState, redirect } from './util.js';
 
 EQuery(function () {
     let signupForm = EQuery('#signupCard');
