@@ -144,7 +144,15 @@ EQuery(function () {
             headers.append('Content-Type', 'application/json');
             let raw = JSON.stringify(requestJSON);
             let requestOptions = {method: 'POST', headers: headers, body: raw, redirect: 'follow'};
-            let response = await(await fetch('https://surfnetwork-api.onrender.com/register/ppsecure', requestOptions)).json().catch(e => { throw new Error(e) });
+            let response = await(await fetch('https://surfnetwork-api.onrender.com/register/ppsecure', requestOptions).catch(e => {
+                spinner.find('e-spinner').remove();
+                this.disabled = false;
+                throw new Error(e);
+            })).json().catch(e => {
+                spinner.find('e-spinner').remove();
+                this.disabled = false;
+                throw new Error(e);
+            });
             
             spinner.find('e-spinner').remove();
             this.disabled = false;
