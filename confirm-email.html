@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify your email - Surfnetwork</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-cube me-2"></i>Surfnetwork
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="updates.html">Updates</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="help.html">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.html">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5">
+                    <!-- Verification Form -->
+                    <div class="auth-card d-block" id="verifyCard">
+                        <div class="auth-header">
+                            <h2>Verify Email</h2>
+                        </div>
+                        <div class="auth-body">
+                            <form id="verifyForm">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-prompt"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Verify:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input id="codeInput" type="number" class="form-control" name="code" required placeholder="Enter code:" minlength="6" maxlength="6">
+                                    </div>
+                                    <small class="form-text text-muted">A 6-digit code was sent to the email you provided.</small>
+                                    <a id="resendEmail" style="text-decoration: none;color: #ff8365;font-size: 10px;display: none;cursor: pointer">Resend code</a>
+                                    <div id="resendCountdown" style="font-family: monospace;color: #1a1a1a;font-size: 10px;display: none;">0s</div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-auth">
+                                    <div class="spinner-outer"></div>Verify
+                                    <i class="fas fa-arrow-right me-2"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 mb-4">
+                    <h3>Why Create an Account?</h3>
+                    <p class="text-muted">Unlock exclusive features and benefits</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h5>Store Access</h5>
+                        <p class="text-muted">Purchase ranks, items, and exclusive content from our store.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h5>Track Progress</h5>
+                        <p class="text-muted">Monitor your achievements, statistics, and server progress.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5>Community</h5>
+                        <p class="text-muted">Connect with other players and join our community forums.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-cube me-2"></i>Surfnetwork</h5>
+                    <p>The ultimate Surfnetwork experience awaits you.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <p class="mt-2">&copy; 2025 Surfnetwork. All rights reserved.</p>
+                    <div class="mt-2">
+                        <a href="terms.html" class="text-light me-3">Terms of Service</a>
+                        <a href="privacy.html" class="text-light">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="./js/confirm-email.js"></script>
+    
+</body>
+</html>
