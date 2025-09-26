@@ -44,7 +44,7 @@ function save(state, cb) {
     clearTimeout(timeout);
     timeout = setTimeout(function() {
         localDB.set(state);
-        cb()
+        if (cb) cb()
     }, 100);
 };
 
