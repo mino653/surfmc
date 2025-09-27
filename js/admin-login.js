@@ -12,7 +12,7 @@ EQuery(function () {
     let prompt = adminLoginForm.find('.input-prompt');
 
     getDB(state => {
-        if (state.adminInstance !== undefined && !state.adminInstance.probation) redirect('./admin-panel-enhanced.html');
+        if (state.adminInstance !== undefined && !state.adminInstance.probation) redirect('./admin-panel-enhanced.html'); 
     });
 
     submitBtn.click(async function(e) {
