@@ -10,6 +10,7 @@ localDB.init(() => {
 });
 
 function fromDB(_state) {
+    console.log(_state)
     if (_state === undefined) _state = {};
     state = _state;
     save(state);
@@ -25,6 +26,7 @@ function getState() {
 }
 
 function setState(newState, cb) {
+    console.log(newState)
     state = newState;
     save(state, cb);
 }
@@ -53,7 +55,7 @@ function clear() {
 };
 
 function redirect(href) {
-    window.location = href;
+    setTimeout(() => window.location = href, 500);
 }
 
 export {
