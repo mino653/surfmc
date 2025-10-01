@@ -1,8 +1,6 @@
 import './equery.js';
 import {
-    getState,
     getDB,
-    setState,
     clear,
     redirect
 } from './util.js';
@@ -55,7 +53,6 @@ EQuery(function () {
         this.disabled = false; console.log(response)
 
         if (response.status === 'success') {
-            let state = getState();
             clear()
             prompt.hide()
                 .removeClass('error')

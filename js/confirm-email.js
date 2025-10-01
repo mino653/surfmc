@@ -13,18 +13,18 @@ EQuery(function () {
     let resendEmail = verifyForm.find('#resendEmail');
     let submitBtn = verifyForm.find('button[type=submit]');
     let prompt = verifyForm.find('.input-prompt');
-    
+
     getDB(state => {
         if (state.userdata == undefined) redirect('./login.html');
         if (state.userdata !== undefined && state.userdata.confirm_email) redirect('./index.html');
     });
-    
+
     startCountdown();
 
     async function send_email() {
         let spinner = verifyForm.find('.spinner-outer').spinner();
-        submitBtn.attr({disabled: 0});
-        
+        submitBtn.attr({ disabled: 0 });
+
         prompt.hide()
             .removeClass('error')
             .removeClass('info')
@@ -43,7 +43,7 @@ EQuery(function () {
             body: raw,
             redirect: 'follow'
         };
-        let response = await(await fetch(`https://surfnetwork-api.onrender.com/register/request_confirm_email?user_id=${getState().userdata.id}`, requestOptions)).json().catch(e => {
+        let response = await (await fetch(`https://surfnetwork-api.onrender.com/register/request_confirm_email?user_id=${getState().userdata.id}`, requestOptions)).json().catch(e => {
             prompt.show()
                 .addClass('error')
                 .text('An error occured while processing your request');
@@ -51,42 +51,40 @@ EQuery(function () {
             submitBtn.removeAttr('disabled');
             throw new Error(e)
         });
-        
-        console.log(response)
-        
+
         spinner.find('e-spinner').remove();
         submitBtn.removeAttr('disabled');
-        
+
         prompt.show()
             .addClass('info')
             .text('Email has been sent');
-            
+
         startCountdown();
     }
-    
+
     function startCountdown() {
         let countdown = 3;
-        
+
         resendCountdown.show();
         resendEmail.hide();
-        
+
         let interval = setInterval(function () {
             resendCountdown.text('Resend in ' + countdown + 's');
             if (countdown <= 0) {
                 resendCountdown.hide();
-                resendEmail.show();  
+                resendEmail.show();
                 clearInterval(interval);
                 countdown = 30;
             }
             countdown--;
         }, 1000);
     }
-    
+
     resendEmail.click(send_email);
 
-    submitBtn.click(async function(e) {
+    submitBtn.click(async function (e) {
         e.preventDefault();
-        
+
         prompt.hide()
             .removeClass('error')
             .removeClass('info')
@@ -111,7 +109,7 @@ EQuery(function () {
                 body: raw,
                 redirect: 'follow'
             };
-            let response = await(await fetch(`https://surfnetwork-api.onrender.com/register/confirm_email?user_id=${getState().userdata.id}&email_code=${codeField.val()}`, requestOptions)).json().catch(e => {
+            let response = await (await fetch(`https://surfnetwork-api.onrender.com/register/confirm_email?user_id=${getState().userdata.id}&email_code=${codeField.val()}`, requestOptions)).json().catch(e => {
                 spinner.find('.e-spinner').remove();
                 _this.disabled = false;
                 throw new Error(e)
@@ -123,11 +121,12 @@ EQuery(function () {
             if (response.error === undefined && response.detail === undefined && response.status == 'success') {
                 let state = getState();
                 state.userdata = response.userdata;
-                setState(state);
-                prompt.hide()
-                    .removeClass('error')
-                    .text('');
-                redirect('./index.html');
+                setState(state, function () {
+                    prompt.hide()
+                        .removeClass('error')
+                        .text('');
+                    redirect('./index.html');
+                });
             } else {
                 prompt.show()
                     .addClass('error')

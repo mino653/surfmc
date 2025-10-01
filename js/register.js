@@ -18,9 +18,9 @@ EQuery(function () {
     let canShowPsw = false;
     console.log('jhhh')
 
-    pswField.attr({type: canShowPsw ? 'text': 'password'});
-    cpswField.attr({type: canShowPsw ? 'text': 'password'});
-    
+    pswField.attr({ type: canShowPsw ? 'text' : 'password' });
+    cpswField.attr({ type: canShowPsw ? 'text' : 'password' });
+
     getDB(state => {
         if (state.userdata == undefined) redirect('./index.html');
     });
@@ -36,7 +36,7 @@ EQuery(function () {
         let number = pswValidateBox.find('#number');
         let length = pswValidateBox.find('#length');
 
-        input.keyup(function() {
+        input.keyup(function () {
             if (input.val().match(lowerCaseLetters)) {
                 letter.removeClass('invalid');
                 letter.addClass('valid');
@@ -83,14 +83,14 @@ EQuery(function () {
             }
         });
     }
-    
+
     signupForm.find('#toLogin').clock
 
-    showPsw.click(function() {
+    showPsw.click(function () {
         canShowPsw = !canShowPsw;
 
-        pswField.attr({type: canShowPsw ? 'text': 'password'});
-        cpswField.attr({type: canShowPsw ? 'text': 'password'});
+        pswField.attr({ type: canShowPsw ? 'text' : 'password' });
+        cpswField.attr({ type: canShowPsw ? 'text' : 'password' });
     });
 
     validPsw(pswField);
@@ -107,26 +107,26 @@ EQuery(function () {
         }
     });
     console.log(pswField, pswValidateBox)
-    
+
     pswField.focus(function () {
         pswValidateBox.show();
     });
-    
+
     pswField.blur(function () {
         pswValidateBox.hide();
     });
-    
+
     cpswField.focus(function () {
         pswValidateBox.show();
     });
-    
+
     cpswField.blur(function () {
         pswValidateBox.hide();
     });
 
-    submitBtn.click(async function(e) {
+    submitBtn.click(async function (e) {
         e.preventDefault();
-        
+
         prompt.hide()
             .removeClass('error')
             .text('');
@@ -134,7 +134,7 @@ EQuery(function () {
         if (validpsw && equalpsw) {
             let spinner = signupForm.find('.spinner-outer').spinner();
             this.disabled = true;
-            
+
             let requestJSON = {
                 "username": usernameField.val(),
                 "email": emailField.val(),
@@ -145,20 +145,21 @@ EQuery(function () {
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             let raw = JSON.stringify(requestJSON);
-            let requestOptions = {method: 'POST', headers: headers, body: raw, redirect: 'follow'};
-            let response = await(await fetch('https://surfnetwork-api.onrender.com/register/ppsecure', requestOptions)).json().catch(e => { throw new Error(e) });
-            
+            let requestOptions = { method: 'POST', headers: headers, body: raw, redirect: 'follow' };
+            let response = await (await fetch('https://surfnetwork-api.onrender.com/register/ppsecure', requestOptions)).json().catch(e => { throw new Error(e) });
+
             spinner.find('.e-spinner').remove();
             this.disabled = false;
-            
+
             if (response.error === undefined) {
                 let state = getState();
                 state.userdata = response;
-                setState(state);
-                prompt.hide()
-                    .removeClass('error')
-                    .text('');
-                redirect('./confirm-email.html');
+                setState(state, function () {
+                    prompt.hide()
+                        .removeClass('error')
+                        .text('');
+                    redirect('./confirm-email.html');
+                });
             } else {
                 prompt.show()
                     .addClass('error')
@@ -170,6 +171,6 @@ EQuery(function () {
             pswValidateBox.addClass('shake');
         }
     });
-    
+
     signupForm.find('#toLogin').click(() => redirect('./login.html'));
 });

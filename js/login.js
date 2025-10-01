@@ -19,18 +19,18 @@ EQuery(function () {
         if (state.userdata !== undefined && state.userdata.confirm_email) redirect('./index.html');
     });
 
-    showPsw.click(function() {
+    showPsw.click(function () {
         canShowPsw = !canShowPsw;
-        pswField.attr({type: canShowPsw ? 'text': 'password'});
+        pswField.attr({ type: canShowPsw ? 'text' : 'password' });
     });
 
-    submitBtn.click(async function(e) {
+    submitBtn.click(async function (e) {
         e.preventDefault();
 
         prompt.hide()
             .removeClass('error')
             .text('');
-                    
+
         let spinner = loginForm.find('.spinner-outer').spinner();
         this.disabled = true;
 
@@ -48,7 +48,7 @@ EQuery(function () {
             body: raw,
             redirect: 'follow'
         };
-        let response = await(await fetch('https://surfnetwork-api.onrender.com/login/ppsecure', requestOptions)).json().catch(e => {
+        let response = await (await fetch('https://surfnetwork-api.onrender.com/login/ppsecure', requestOptions)).json().catch(e => {
             throw new Error(e)
         });
 
@@ -58,18 +58,19 @@ EQuery(function () {
         if (response.detail === undefined) {
             let state = getState();
             state.userdata = response;
-            setState(state);
-            prompt.hide()
-                .removeClass('error')
-                .text('');
-            if (!state.userdata.confirm_email) redirect('./confirm-email.html');
-            else redirect('./index.html');
+            setState(state, function () {
+                prompt.hide()
+                    .removeClass('error')
+                    .text('');
+                if (!state.userdata.confirm_email) redirect('./confirm-email.html');
+                else redirect('./index.html');
+            });
         } else {
             prompt.show()
-            .addClass('error')
-            .text(response.detail.error || "An error occured while processing your request");
+                .addClass('error')
+                .text(response.detail.error || "An error occured while processing your request");
         }
     });
-    
+
     loginForm.find('#toRegister').click(() => redirect('./register.html'));
 });

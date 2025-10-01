@@ -38,7 +38,7 @@ EQuery(function () {
             headers: headers,
             body: raw,
             redirect: 'follow'
-        };console.log(requestJSON)
+        };
         let response = await(await fetch('https://surfnetwork-api.onrender.com/admin/login/ppsecure', requestOptions).catch(e => {
             spinner.find('.e-spinner').remove();
             this.disabled = false;
