@@ -1,5 +1,5 @@
 import {
-    getDB, getState, setState
+    getDB, getState, setState, redirect
 } from './util.js'
 import './equery.js'
 import { showNotification } from './script.js'
@@ -7,7 +7,7 @@ import { showNotification } from './script.js'
 EQuery(function () {
     let adminLoginForm = EQuery('#adminLoginForm');
     let emailField = adminLoginForm.find('#adminEmail');
-    let pswField = adminLoginForm.find('#admimPassword');
+    let pswField = adminLoginForm.find('#adminPassword');
     let submitBtn = adminLoginForm.find('button[type=submit]');
     let prompt = adminLoginForm.find('.input-prompt');
 
@@ -17,6 +17,10 @@ EQuery(function () {
 
     submitBtn.click(async function(e) {
         e.preventDefault();
+        
+        prompt.hide()
+            .removeClass('error')
+            .text('');
 
         let spinner = adminLoginForm.find('.spinner-outer').removeChildren().spinner();
         this.disabled = true;
@@ -34,19 +38,19 @@ EQuery(function () {
             headers: headers,
             body: raw,
             redirect: 'follow'
-        };
+        };console.log(requestJSON)
         let response = await(await fetch('https://surfnetwork-api.onrender.com/admin/login/ppsecure', requestOptions).catch(e => {
-            spinner.find('e-spinner').remove();
+            spinner.find('.e-spinner').remove();
             this.disabled = false;
             throw new Error(e);
         })).json().catch(e => {
-            spinner.find('e-spinner').remove();
+            spinner.find('.e-spinner').remove();
             this.disabled = false;
             throw new Error(e);
         });
 
-        spinner.find('e-spinner').remove();
-        this.disabled = false; console.log(response)
+        spinner.find('.e-spinner').remove();
+        this.disabled = false;
 
         if (response.detail === undefined) {
             let state = getState();
@@ -55,12 +59,11 @@ EQuery(function () {
                 prompt.hide()
                     .removeClass('error')
                     .text('');
-                if (!state.adminInstance.probation) {
+                if (state.adminInstance.probation) {
                     state.adminInstance = null;
                     showNotification('Your admin account is placed on probation', 'warn');
                     setState(state);
-                }
-                else redirect('./admin-panel-enhanced.html');
+                } else redirect('./admin-panel-enhanced.html');
             });
         } else {
             prompt.show()

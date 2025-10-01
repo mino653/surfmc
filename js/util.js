@@ -10,8 +10,9 @@ localDB.init(() => {
 });
 
 function fromDB(_state) {
-    console.log(_state)
+    if (_state === undefined) _state = {};
     state = _state;
+    save(state);
 }
 
 function getDB(cb) {
@@ -20,7 +21,6 @@ function getDB(cb) {
 }
 
 function getState() {
-    localDB.get(fromDB);
     return state;
 }
 
@@ -30,13 +30,13 @@ function setState(newState, cb) {
 }
 
 function logout() {
-    clear();
+    state.logged_in = false;
     reload();
 };
 
 
 function reload() {
-    app.save();
+    save();
     setTimeout(function () {window.location.reload()}, 2000)};
 
 function save(state, cb) {
@@ -45,18 +45,17 @@ function save(state, cb) {
     timeout = setTimeout(function() {
         localDB.set(state);
         if (cb) cb()
-    }, 100);
+    }, 200);
 };
 
 function clear() {
-    // localDB.clear();
+    localDB.clear();
 };
 
 function redirect(href) {
-    getDB(console.log)
-    setTimeout(() => window.location = href, 5000);
+    window.location = href;
 }
 
 export {
-    getState, getDB, setState, redirect, clear
+    getState, getDB, setState, redirect, reload
 };

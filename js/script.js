@@ -1,5 +1,8 @@
 import {
-    getDB, redirect
+    getDB,
+    getState,
+    setState,
+    redirect
 } from './util.js';
 import './equery.js';
 
@@ -10,14 +13,16 @@ EQuery(async function () {
             const loginLink = EQuery('#loginNavLink');
             userdata = state.userdata;
             loginLink.removeChildren()
-                .removeAttr('href')
-                .click(showUserMenu)
-                .append([EQuery.elemt('i', null, 'fas fa-user me-2'), userdata.username]);
+            .removeAttr('href')
+            .click(showUserMenu)
+            .append([EQuery.elemt('i', null, 'fas fa-user me-2'), userdata.username]);
         }
+        loadTheme()
     });
 
     const ipRevealBtn = EQuery('#ipRevealBtn');
-    const ipDisplay = EQuery('#ipDisplay')
+    const ipDisplay = EQuery('#ipDisplay');
+    const themeIcon = EQuery('#themeIcon');
 
     function showUserMenu(e) {
         e.preventDefault();
@@ -80,7 +85,7 @@ EQuery(async function () {
         });
 
         EQuery('#ip').text(response.ip);
-        EQuery('#serverStatus').addClass(response.online ? 'bg-success' : 'bg-fail').text(response.online ? 'Online' : 'Offline');
+        EQuery('#serverStatus').addClass(response.online ? 'bg-success': 'bg-fail').text(response.online ? 'Online': 'Offline');
         EQuery('#playersCount').text(response.count + '/' + response.max);
         EQuery('#serverVersion').text(response.version);
         EQuery('#serverUptime').text(response.uptime);
@@ -109,11 +114,13 @@ EQuery(async function () {
         }
     });
 
+    themeIcon.click(toggleTheme);
+
     // Smooth scroll for anchor links
     EQuery(document).click(function (e) {
         if (e.target.matches('a[href^="#"]')) {
             e.preventDefault();
-            const target = EQuery(e.target.getAttribute('href'))[0];
+            const target = EQuery(`[href=\'${e.target.getAttribute('href')}\']`)[0];
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
@@ -133,12 +140,11 @@ EQuery(async function () {
     initializeParticleEffect();
 
 
-
     // Smooth scroll for anchor links
     EQuery(document).click(function (e) {
         if (e.target.matches('a[href^="#"]')) {
             e.preventDefault();
-            const target = document.querySelector(e.target.getAttribute('href'));
+            const target = EQuery(`[href=\'${e.target.getAttribute('href')}\']`)[0];
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
@@ -151,13 +157,14 @@ EQuery(async function () {
     // Initialize Navbar Scroll Effect
     function initializeNavbarScroll() {
         const navbar = EQuery('.navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.addClass('scrolled');
-            } else {
-                navbar.removeClass('scrolled');
-            }
-        });
+        window.addEventListener('scroll',
+            () => {
+                if (window.scrollY > 50) {
+                    navbar.addClass('scrolled');
+                } else {
+                    navbar.removeClass('scrolled');
+                }
+            });
 
     }
 
@@ -172,39 +179,18 @@ EQuery(async function () {
         const particleCount = 50;
 
         for (let i = 0; i < particleCount; i++) {
-            const animationStyle = i % 2 == 0 ? 'linear' : i % 3 == 0 ? 'ease-in' : 'ease-out'
+            const animationStyle = i % 2 == 0 ? 'linear': i % 3 == 0 ? 'ease-in': 'ease-out'
             const particle = EQuery.elemt('div', null, 'particle', null, `position: absolute;width: 8px;height: 8px;background: rgba(255, 255, 255, 0.5);pointer-events: none;animation: float ${Math.random() * 3 + 2}s infinite ${animationStyle};left: ${Math.random() * 100}%;top: ${Math.random() * 100}%;animation-delay: ${Math.random() * 2}s;`);
             container.append(particle);
         }
 
         // Add particle animation CSS
         if (!EQuery('#particle-styles')[0]) {
-            const style = EQuery.elemt('style', `@keyframes float {0%, 100% {transform: translateY(0px) rotate(0deg);opacity: 0.8;}50% {transform: translateY(-40px) rotate(180deg);opacity: 0.5;}}`, null, { id: 'particle-styles' });
+            const style = EQuery.elemt('style', `@keyframes float {0%, 100% {transform: translateY(0px) rotate(0deg);opacity: 0.8;}50% {transform: translateY(-40px) rotate(180deg);opacity: 0.5;}}`, null, {
+                id: 'particle-styles'
+            });
             EQuery('head').append(style);
         }
-    }
-
-    function toggleTheme() {
-        const state = getState();
-        const currentTheme = EQuery(document.documentElement).attr('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        EQuery(document.documentElement).attr({ 'data-theme': newTheme });
-
-        // Update theme icon
-        const themeIcon = EQuery('#themeIcon');
-        themeIcon.attr({ class: newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon' });
-        state.theme = newTheme;
-        setState(state);
-    }
-
-    function loadTheme() {
-        const savedTheme = getState().theme || 'light';
-        EQuery(document.documentElement).attr({ 'data-theme': savedTheme });
-
-        // Update theme icon
-        const themeIcon = EQuery('#themeIcon');
-        themeIcon.attr({ class: newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon' });
     }
 
     // Mobile menu toggle
@@ -231,7 +217,8 @@ EQuery(async function () {
 // Performance optimization: Lazy loading for images
 function initializeLazyLoading() {
     const images = EQuery('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries, observer) => {
+    const imageObserver = new IntersectionObserver((entries,
+        observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
@@ -248,7 +235,8 @@ function initializeLazyLoading() {
 function copyIP() {
     const ipText = EQuery('.ip-text').text();
     navigator.clipboard.writeText(ipText).then(() => {
-        showNotification('IP copied to clipboard!', 'success');
+        showNotification('IP copied to clipboard!',
+            'success');
     }).catch(() => {
         // Fallback for older browsers
         const textArea = EQuery.elemt('textarea');
@@ -257,16 +245,20 @@ function copyIP() {
         textAream[0].select();
         document.execCommand('copy');
         textArea.remove()
-        showNotification('IP copied to clipboard!', 'success');
+        showNotification('IP copied to clipboard!',
+            'success');
     });
 }
 
 // Show Notification
 function showNotification(message, type = 'info') {
     const notification = EQuery.elemt('div', [
-        EQuery.elemt('div', [
-            EQuery.elemt('i', null, `fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2`), message
-        ], 'd-flex align-items-center')
+        EQuery.elemt('div',
+            [
+                EQuery.elemt('i', null, `fas fa-${type === 'success' ? 'check-circle': type === 'error' ? 'exclamation-circle': 'info-circle'} me-2`),
+                message
+            ],
+            'd-flex align-items-center')
     ], `alert alert-${type} alert-custom position-fixed`, null, 'top: 100px; right: 20px; z-index: 9999; min-width: 300px;')
 
     EQuery('body').append(notification);
@@ -274,7 +266,8 @@ function showNotification(message, type = 'info') {
     // Auto remove after 3 seconds
     setTimeout(() => {
         notification.css('opacity: 0');
-        setTimeout(() => notification.remove(), 300);
+        setTimeout(() => notification.remove(),
+            300);
     }, 3000);
 }
 
@@ -293,4 +286,42 @@ async function updateServerStatus() {
     }
 }
 
-export { showNotification, updateServerStatus }
+
+
+function loadTheme() {
+    const savedTheme = getState().theme || 'light';
+    EQuery(document.documentElement).attr({
+        'data-theme': savedTheme
+    });
+
+    // Update theme icon
+    const themeIcon = EQuery('#themeIcon').find('i');
+    themeIcon.attr({
+        class: savedTheme === 'dark' ? 'fas fa-sun': 'fas fa-moon'
+    });
+}
+
+function toggleTheme() {
+    const state = getState();
+    const currentTheme = EQuery(document.documentElement).getAttr('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light': 'dark';
+
+    EQuery(document.documentElement).attr({
+        'data-theme': newTheme
+    });
+
+    // Update theme icon
+    const themeIcon = EQuery('#themeIcon').find('i');
+    themeIcon.attr({
+        class: newTheme === 'dark' ? 'fas fa-sun': 'fas fa-moon'
+    });
+    state.theme = newTheme;
+    setState(state);
+}
+
+export {
+    showNotification,
+    updateServerStatus,
+    loadTheme,
+    toggleTheme
+}

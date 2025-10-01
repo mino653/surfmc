@@ -8,7 +8,7 @@ EQuery(function () {
     let pswField = signupForm.find('#pswInput');
     let cpswField = signupForm.find('#cpswInput');
     let showPsw = signupForm.find('.togglePsw');
-    let termsCheckbox = signupForm.find('#agreeTerms'); 
+    let termsCheckbox = signupForm.find('#termsCheckbox');
     let subCheckbox = signupForm.find('#subCheckbox');
     let submitBtn = signupForm.find('button[type=submit]');
     let pswValidateBox = signupForm.find('#pswValidateBox');
@@ -16,12 +16,13 @@ EQuery(function () {
     let validpsw = false;
     let equalpsw = false;
     let canShowPsw = false;
+    console.log('jhhh')
 
     pswField.attr({type: canShowPsw ? 'text': 'password'});
     cpswField.attr({type: canShowPsw ? 'text': 'password'});
     
     getDB(state => {
-        if (state.userdata !== undefined && state.userdata.id !== undefined) redirect('./index.html');
+        if (state.userdata == undefined) redirect('./index.html');
     });
 
     function validPsw(input) {
@@ -105,6 +106,7 @@ EQuery(function () {
             pswValidateBox.find('#equal').addClass('invalid');
         }
     });
+    console.log(pswField, pswValidateBox)
     
     pswField.focus(function () {
         pswValidateBox.show();
@@ -124,48 +126,39 @@ EQuery(function () {
 
     submitBtn.click(async function(e) {
         e.preventDefault();
+        
+        prompt.hide()
+            .removeClass('error')
+            .text('');
 
         if (validpsw && equalpsw) {
-            if (!termsCheckbox[0].checked) {
-                EQuery(termsCheckbox[0].parentElement).removeClass('shake').addClass('shake');
-                return;
-            }
-            let spinner = signupForm.find('.spinner-outer').removeChildren().spinner();
+            let spinner = signupForm.find('.spinner-outer').spinner();
             this.disabled = true;
             
             let requestJSON = {
                 "username": usernameField.val(),
                 "email": emailField.val(),
                 "psw": pswField.val(),
-                "sub": subCheckbox[0].checked
+                "sub": subCheckbox.val()
             };
 
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             let raw = JSON.stringify(requestJSON);
             let requestOptions = {method: 'POST', headers: headers, body: raw, redirect: 'follow'};
-            let response = await(await fetch('https://surfnetwork-api.onrender.com/register/ppsecure', requestOptions).catch(e => {
-                spinner.find('e-spinner').remove();
-                this.disabled = false;
-                throw new Error(e);
-            })).json().catch(e => {
-                spinner.find('e-spinner').remove();
-                this.disabled = false;
-                throw new Error(e);
-            });
+            let response = await(await fetch('https://surfnetwork-api.onrender.com/register/ppsecure', requestOptions)).json().catch(e => { throw new Error(e) });
             
-            spinner.find('e-spinner').remove();
+            spinner.find('.e-spinner').remove();
             this.disabled = false;
             
             if (response.error === undefined) {
                 let state = getState();
                 state.userdata = response;
-                setState(state, function () {
-                    prompt.hide()
-                        .removeClass('error')
-                        .text('');
-                    redirect('./confirm-email.html');
-                });
+                setState(state);
+                prompt.hide()
+                    .removeClass('error')
+                    .text('');
+                redirect('./confirm-email.html');
             } else {
                 prompt.show()
                     .addClass('error')

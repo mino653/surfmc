@@ -26,8 +26,12 @@ EQuery(function () {
 
     submitBtn.click(async function(e) {
         e.preventDefault();
+        
+        prompt.hide()
+            .removeClass('error')
+            .text('');
 
-        let spinner = logoutForm.find('.spinner-outer').removeChildren().spinner();
+        let spinner = logoutForm.find('.spinner-outer').spinner();
         this.disabled = true;
 
         let requestJSON = {
@@ -43,25 +47,20 @@ EQuery(function () {
             body: raw,
             redirect: 'follow'
         };
-        let response = await(await fetch('https://surfnetwork-api.onrender.com/logout/ppsecure', requestOptions).catch(e => {
-            spinner.find('e-spinner').remove();
-            this.disabled = false;
-            throw new Error(e);
-        })).json().catch(e => {
-            spinner.find('e-spinner').remove();
-            this.disabled = false;
-            throw new Error(e);
+        let response = await(await fetch('https://surfnetwork-api.onrender.com/logout/ppsecure', requestOptions)).json().catch(e => {
+            throw new Error(e)
         });
 
-        spinner.find('e-spinner').remove();
+        spinner.find('.e-spinner').remove();
         this.disabled = false; console.log(response)
 
         if (response.status === 'success') {
+            let state = getState();
             clear()
             prompt.hide()
                 .removeClass('error')
                 .text('');
-            setTimeout(() => redirect('./index.html'), 20);
+            setTimeout(() => redirect('./index.html'));
         } else {
             prompt.show()
             .addClass('error')

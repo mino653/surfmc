@@ -27,7 +27,11 @@ EQuery(function () {
     submitBtn.click(async function(e) {
         e.preventDefault();
 
-        let spinner = loginForm.find('.spinner-outer').removeChildren().spinner();
+        prompt.hide()
+            .removeClass('error')
+            .text('');
+                    
+        let spinner = loginForm.find('.spinner-outer').spinner();
         this.disabled = true;
 
         let requestJSON = {
@@ -44,29 +48,22 @@ EQuery(function () {
             body: raw,
             redirect: 'follow'
         };
-        let response = await(await fetch('https://surfnetwork-api.onrender.com/login/ppsecure', requestOptions).catch(e => {
-            spinner.find('e-spinner').remove();
-            this.disabled = false;
-            throw new Error(e);
-        })).json().catch(e => {
-            spinner.find('e-spinner').remove();
-            this.disabled = false;
-            throw new Error(e);
+        let response = await(await fetch('https://surfnetwork-api.onrender.com/login/ppsecure', requestOptions)).json().catch(e => {
+            throw new Error(e)
         });
 
-        spinner.find('e-spinner').remove();
+        spinner.find('.e-spinner').remove();
         this.disabled = false; console.log(response)
 
         if (response.detail === undefined) {
             let state = getState();
             state.userdata = response;
-            setState(state, function () {
-                prompt.hide()
-                    .removeClass('error')
-                    .text('');
-                if (!state.userdata.confirm_email) redirect('./confirm-email.html');
-                else redirect('./index.html');
-            });
+            setState(state);
+            prompt.hide()
+                .removeClass('error')
+                .text('');
+            if (!state.userdata.confirm_email) redirect('./confirm-email.html');
+            else redirect('./index.html');
         } else {
             prompt.show()
             .addClass('error')
