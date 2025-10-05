@@ -85,7 +85,7 @@ EQuery(async function () {
         });
 
         EQuery('#ip').text(response.ip);
-        EQuery('#serverStatus').addClass(response.status.online ? 'bg-success': 'bg-fail').text(response.status:online ? 'Online': 'Offline');
+        EQuery('#serverStatus').addClass(response.status.online ? 'bg-success': 'bg-fail').text(response.status.online ? 'Online': 'Offline');
         EQuery('#playersCount').text(response.status.count + '/' + response.max);
         EQuery('#serverVersion').text(response.status.version);
         EQuery('#serverUptime').text(response.status.uptime);
