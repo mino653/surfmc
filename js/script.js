@@ -85,13 +85,13 @@ EQuery(async function () {
         });
 
         EQuery('#ip').text(response.ip);
-        EQuery('#serverStatus').addClass(response.online ? 'bg-success': 'bg-fail').text(response.online ? 'Online': 'Offline');
-        EQuery('#playersCount').text(response.count + '/' + response.max);
-        EQuery('#serverVersion').text(response.version);
-        EQuery('#serverUptime').text(response.uptime);
-        EQuery('#totalPlayers').text(response.total);
-        EQuery('#playerCount').text(response.count);
-        EQuery('#playersAvg').text(response.average);
+        EQuery('#serverStatus').addClass(response.status.online ? 'bg-success': 'bg-fail').text(response.status:online ? 'Online': 'Offline');
+        EQuery('#playersCount').text(response.status.count + '/' + response.max);
+        EQuery('#serverVersion').text(response.status.version);
+        EQuery('#serverUptime').text(response.status.uptime);
+        EQuery('#totalPlayers').text(response.status.total);
+        EQuery('#playerCount').text(response.status.count);
+        EQuery('#playersAvg').text(response.status.average);
     }
 
     ipRevealBtn.click(async function () {
@@ -279,8 +279,8 @@ async function updateServerStatus() {
             let response = await (await fetch('https://surfnetwork-api.onrender.com/player-count', {method: 'post'})).json().catch(function (e) {
                 throw new Error(e);
             });
-            const currentCount = response.count;
-            const maxCount = response.maxCount;
+            const currentCount = response.status.count;
+            const maxCount = response.status.maxCount;
             playerCountElement.textContent = `${currentCount}/${maxCount} Players`;
         }, 30000);
     }
