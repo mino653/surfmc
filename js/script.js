@@ -280,7 +280,7 @@ async function updateServerStatus() {
                 throw new Error(e);
             });
             const currentCount = response.status.count;
-            const maxCount = response.status.maxCount;
+            const maxCount = response.status.max;
             playerCountElement.textContent = `${currentCount}/${maxCount} Players`;
         }, 30000);
     }
