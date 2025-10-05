@@ -80,7 +80,7 @@ EQuery(async function () {
     setInterval(getStats, 30000);
 
     async function getStats() {
-        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-stats')).json().catch(function (e) {
+        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-stats', {method: 'post'})).json().catch(function (e) {
             throw new Error(e);
         });
 
@@ -99,7 +99,7 @@ EQuery(async function () {
         ipRevealBtn.hide();
         this.disabled = true;
 
-        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-ip')).json().catch(function (e) {
+        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-ip', {method: 'post'})).json().catch(function (e) {
             throw new Error(e);
         });
 
@@ -276,7 +276,7 @@ async function updateServerStatus() {
     const playerCountElement = document.getElementById('playerCount');
     if (playerCountElement) {
         setInterval(async function () {
-            let response = await (await fetch('https://surfnetwork-api.onrender.com/player-count')).json().catch(function (e) {
+            let response = await (await fetch('https://surfnetwork-api.onrender.com/player-count', {method: 'post'})).json().catch(function (e) {
                 throw new Error(e);
             });
             const currentCount = response.count;
