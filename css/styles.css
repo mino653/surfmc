@@ -411,7 +411,7 @@ html {
 .form-group .input-prompt.info {color: #4caf50;}
 .form-group .input-prompt.error {color: #f83266;}
 .form-group .message {display: block;position: absolute;background: #1f1f1f;color: #e8e8e8;top: 0px;padding: 8px;text-align: left;border-radius: 12px;box-shadow: 0 0 2px #000;}
-.form-group .message p {padding: 5px 35px;f;font-size: 16px;}
+.form-group .message p {padding: 5px 35px;font-size: 16px;}
 .form-group .message .valid {color: #4caf50}
 .form-group .message .valid:before {position: relative;left: -35px;content: "✓";}
 .form-group .message .invalid {color: #ff6347}
