@@ -16,13 +16,13 @@ EQuery(function () {
     let validpsw = false;
     let equalpsw = false;
     let canShowPsw = false;
-    console.log('jhhh')
 
     pswField.attr({ type: canShowPsw ? 'text' : 'password' });
     cpswField.attr({ type: canShowPsw ? 'text' : 'password' });
 
     getDB(state => {
-        if (state.userdata !== undefined) redirect('./index.html');
+        console.log(state.userdata !== undefined)
+        //if (state.userdata !== undefined) redirect('./index.html');
     });
 
     function validPsw(input) {
