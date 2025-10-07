@@ -6,6 +6,7 @@
     <title>Admin Panel - Surfnetwork</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
     <style>
         :root {
             --bg-primary: #f8f9fa;
@@ -21,6 +22,8 @@
             --card-bg: #ffffff;
             --table-bg: #ffffff;
             --table-header-bg: #f8f9fa;
+            --table-body-bg: #f8f8f8;
+            --table-body-bg-2: #e8e8e8;
         }
 
         [data-theme="dark"] {
@@ -37,6 +40,8 @@
             --card-bg: #2d2d2d;
             --table-bg: #2d2d2d;
             --table-header-bg: #404040;
+            --table-body-bg: #1a1a1a;
+            --table-body-bg-2: #2b2b2b;
         }
 
         body {
@@ -53,7 +58,6 @@
         }
         .admin-sidebar {
             background: var(--bg-sidebar);
-            min-height: 100vh;
             box-shadow: 2px 0 10px var(--shadow);
             padding: 0;
             transition: background-color 0.3s ease;
@@ -164,6 +168,7 @@
             font-size: 0.8rem;
             transition: all 0.2s ease;
         }
+        .btn {margin-bottom: 8px;}
         .btn-edit { background: #17a2b8; color: white; }
         .btn-ban { background: #dc3545; color: white; }
         .btn-unban { background: #28a745; color: white; }
@@ -202,6 +207,12 @@
             border: none;
             font-weight: 600;
             color: var(--text-primary);
+        }
+        .table tr:nth-child(odd) td {
+            background-color: var(--table-body-bg);
+        }
+        .table tr:nth-child(even) td {
+            background-color: var(--table-body-bg-2);
         }
         .table td {
             border: none;
@@ -242,6 +253,14 @@
             color: #0c5460;
             border-left: 4px solid #17a2b8;
         }
+        @media (min-width: 768px) {
+            .hide-large {display: none;}
+            .hide-small {display: block;}
+        }
+        @media (max-width: 768px) {
+            .hide-large {display: block;}
+            .hide-small {display: none;}
+        }
     </style>
 </head>
 <body>
@@ -253,12 +272,7 @@
                     <h1><i class="fas fa-shield-alt me-2"></i>Admin Panel</h1>
                     <p class="mb-0">Surfnetwork Administration Dashboard</p>
                 </div>
-                <div class="col-md-4 text-end">
-                    <div class="dropdown me-3 d-inline-block">
-                        <button class="btn btn-outline-light" type="button" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                            <i class="fas fa-moon" id="themeIcon"></i>
-                        </button>
-                    </div>
+                <div class="d-flex align-items-center flex-row-reverse col-md-4 text-end" style="gap: 12px">
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
                             <i class="fas fa-user-shield me-2"></i>Admin User
@@ -267,10 +281,20 @@
                             <li><a class="dropdown-item" href="index.html">
                                 <i class="fas fa-home me-2"></i>Go to Home Page
                             </a></li>
-                            <li><a class="dropdown-item" href="#" onclick="logoutAdmin()">
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">
                                 <i class="fas fa-sign-out-alt me-2"></i>Logout
                             </a></li>
                         </ul>
+                    </div>
+                    <div class="dropdown me-3 d-inline-block">
+                        <button id="themeIcon" class="btn btn-outline-light" type="button" title="Toggle Dark/Light Mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                    <div class="dropdown me-3 d-inline-block">
+                        <button id="toggleMobileSidebar" class="btn btn-outline-light hide-large" type="button" title="Toggle Dark/Light Mode">
+                            <i class="fas fa-bars"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -280,33 +304,33 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-3 admin-sidebar">
+            <div id="sidebar" class="col-md-3 admin-sidebar hide-small">
                 <nav class="nav flex-column">
-                    <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+                    <a class="nav-link active" href="#" id="showDashboardSection">
                         <i class="fas fa-tachometer-alt"></i>Dashboard
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('users')">
+                    <a class="nav-link" href="#" id="showUsersSection">
                         <i class="fas fa-users"></i>User Management
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('signups')">
+                    <a class="nav-link" href="#" id="showSignupsSection">
                         <i class="fas fa-user-plus"></i>Recent Signups
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('purchases')">
+                    <a class="nav-link" href="#" id="showPurchasesSection">
                         <i class="fas fa-shopping-cart"></i>Purchases
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('messages')">
+                    <a class="nav-link" href="#" id="showMessagesSection">
                         <i class="fas fa-envelope"></i>Messages
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('analytics')">
+                    <a class="nav-link" href="#" id="showAnalyticsSection">
                         <i class="fas fa-chart-line"></i>Analytics
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('server')">
+                    <a class="nav-link" href="#" id="showServerSection">
                         <i class="fas fa-server"></i>Server Management
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('logs')">
+                    <a class="nav-link" href="#" id="showLogsSection">
                         <i class="fas fa-file-alt"></i>Activity Logs
                     </a>
-                    <a class="nav-link" href="#" onclick="showSection('settings')">
+                    <a class="nav-link" href="#" id="showSettingsSection">
                         <i class="fas fa-cog"></i>Settings
                     </a>
                 </nav>
@@ -350,16 +374,16 @@
                     <!-- Quick Actions -->
                     <div class="stat-card">
                         <h4><i class="fas fa-bolt me-2"></i>Quick Actions</h4>
-                        <button class="btn btn-primary me-2" onclick="refreshData()">
+                        <button class="btn btn-primary me-2" id="refreshBtn">
                             <i class="fas fa-refresh me-2"></i>Refresh Data
                         </button>
-                        <button class="btn btn-success me-2" onclick="createTestUser()">
+                        <button class="btn btn-success me-2" id="createTestUserBtn">
                             <i class="fas fa-user-plus me-2"></i>Create Test User
                         </button>
-                        <button class="btn btn-info me-2" onclick="exportData()">
+                        <button class="btn btn-info me-2" id="exportBtn">
                             <i class="fas fa-download me-2"></i>Export Data
                         </button>
-                        <button class="btn btn-warning me-2" onclick="backupData()">
+                        <button class="btn btn-warning me-2" id="backupData">
                             <i class="fas fa-save me-2"></i>Backup Data
                         </button>
                     </div>
@@ -374,17 +398,17 @@
                     <div class="search-box">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="userSearch" placeholder="Search users by name or email..." onkeyup="searchUsers()">
+                                <input type="text" class="form-control" id="userSearch" placeholder="Search users by name or email...">
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" id="statusFilter" onchange="filterUsers()">
+                                <select class="form-control" id="statusFilter">
                                     <option value="all">All Status</option>
                                     <option value="online">Online Only</option>
                                     <option value="offline">Offline Only</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
-                                <select class="form-control" id="rankFilter" onchange="filterUsers()">
+                                <select class="form-control" id="rankFilter">
                                     <option value="all">All Ranks</option>
                                     <option value="OWNER">Owner</option>
                                     <option value="ADMIN">Admin</option>
@@ -494,7 +518,7 @@
                         <div class="text-center py-5">
                             <i class="fas fa-chart-bar fa-3x text-muted mb-3"></i>
                             <p class="text-muted">Chart visualization would be implemented here</p>
-                            <button class="btn btn-primary" onclick="generateReport()">
+                            <button class="btn btn-primary" id="generateReportBtn">
                                 <i class="fas fa-download me-2"></i>Generate Report
                             </button>
                         </div>
@@ -543,17 +567,17 @@
                         <h4><i class="fas fa-tools me-2"></i>Server Actions</h4>
                         <div class="row">
                             <div class="col-md-4 mb-2">
-                                <button class="btn btn-success w-100" onclick="restartServer()">
+                                <button class="btn btn-success w-100" id="restartServerBtn">
                                     <i class="fas fa-redo me-2"></i>Restart Server
                                 </button>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <button class="btn btn-warning w-100" onclick="backupServer()">
+                                <button class="btn btn-warning w-100" id="backupServerBtn">
                                     <i class="fas fa-save me-2"></i>Backup Server
                                 </button>
                             </div>
                             <div class="col-md-4 mb-2">
-                                <button class="btn btn-info w-100" onclick="updateServer()">
+                                <button class="btn btn-info w-100" id="updateServerBtn">
                                     <i class="fas fa-sync me-2"></i>Update Server
                                 </button>
                             </div>
@@ -570,7 +594,7 @@
                     <div class="search-box">
                         <div class="row">
                             <div class="col-md-4">
-                                <select class="form-control" id="logTypeFilter" onchange="filterLogs()">
+                                <select class="form-control" id="logTypeFilter">
                                     <option value="all">All Logs</option>
                                     <option value="login">Login Events</option>
                                     <option value="purchase">Purchase Events</option>
@@ -579,10 +603,10 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <input type="date" class="form-control" id="logDateFilter" onchange="filterLogs()">
+                                <input type="date" class="form-control" id="logDateFilter">
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-primary w-100" onclick="exportLogs()">
+                                <button class="btn btn-primary w-100" id="exportLogsBtn">
                                     <i class="fas fa-download me-2"></i>Export Logs
                                 </button>
                             </div>
@@ -623,18 +647,18 @@
                         <h4><i class="fas fa-database me-2"></i>Data Management</h4>
                         <div class="row">
                             <div class="col-md-6">
-                                <button class="btn btn-success w-100 mb-2" onclick="createSampleData()">
+                                <button class="btn btn-success w-100 mb-2" id="createSampleDataBtn">
                                     <i class="fas fa-plus me-2"></i>Create Sample Data
                                 </button>
-                                <button class="btn btn-info w-100 mb-2" onclick="exportData()">
+                                <button class="btn btn-info w-100 mb-2" id="exportDataBtn">
                                     <i class="fas fa-download me-2"></i>Export All Data
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <button class="btn btn-warning w-100 mb-2" onclick="backupData()">
+                                <button class="btn btn-warning w-100 mb-2" id="backupDataBtn">
                                     <i class="fas fa-save me-2"></i>Backup Data
                                 </button>
-                                <button class="btn btn-danger w-100 mb-2" onclick="clearAllData()">
+                                <button class="btn btn-danger w-100 mb-2" id="clearAllDataBtn">
                                     <i class="fas fa-trash me-2"></i>Clear All Data
                                 </button>
                             </div>
@@ -656,737 +680,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="database.js"></script>
-    <script>
-        // Theme management
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('adminTheme', newTheme);
-            
-            // Update theme icon
-            const themeIcon = document.getElementById('themeIcon');
-            themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-            
-            console.log('Theme switched to:', newTheme);
-        }
-        
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('adminTheme') || 'light';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            
-            // Update theme icon
-            const themeIcon = document.getElementById('themeIcon');
-            themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-            
-            console.log('Theme loaded:', savedTheme);
-        }
-        
-        // Enhanced Admin Panel JavaScript
-        
-        let allUsers = [];
-        let filteredUsers = [];
-        
-        console.log('Enhanced admin panel loaded');
-        
-        // Check if admin is logged in (always require login)
-        function checkAdminLogin() {
-            const adminToken = localStorage.getItem('adminToken');
-            const adminData = localStorage.getItem('adminData');
-            
-            console.log('Admin token:', adminToken ? 'Present' : 'Missing');
-            console.log('Admin data:', adminData ? 'Present' : 'Missing');
-            
-            // Always redirect to login - no auto-login
-            if (!adminToken || !adminData) {
-                console.log('Admin not logged in, redirecting to login');
-                window.location.href = 'admin-login-fixed.html';
-                return false;
-            }
-            
-            console.log('Admin is logged in');
-            return true;
-        }
-        
-        // Show section
-        function showSection(sectionName) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected section
-            document.getElementById(sectionName).classList.add('active');
-            
-            // Add active class to clicked nav link
-            event.target.classList.add('active');
-            
-            // Load section data
-            loadSectionData(sectionName);
-        }
-        
-        // Load section data
-        function loadSectionData(sectionName) {
-            switch(sectionName) {
-                case 'dashboard':
-                    loadDashboardData();
-                    break;
-                case 'users':
-                    loadUsers();
-                    break;
-                case 'signups':
-                    loadRecentSignups();
-                    break;
-                case 'purchases':
-                    loadPurchases();
-                    break;
-                case 'messages':
-                    loadMessages();
-                    break;
-                case 'analytics':
-                    loadAnalytics();
-                    break;
-                case 'server':
-                    loadServerStatus();
-                    break;
-                case 'logs':
-                    loadActivityLogs();
-                    break;
-                case 'settings':
-                    loadSystemInfo();
-                    break;
-            }
-        }
-        
-        // Load dashboard data
-        function loadDashboardData() {
-            console.log('Loading dashboard data...');
-            
-            if (!window.db) {
-                console.error('Database not available');
-                showNotification('Database not available', 'error');
-                return;
-            }
-            
-            try {
-                // Load statistics
-                const stats = window.db.getUserStats();
-                document.getElementById('totalUsers').textContent = stats.totalUsers;
-                document.getElementById('onlineUsers').textContent = stats.activeUsers;
-                document.getElementById('totalRevenue').textContent = '$' + stats.totalRevenue.toFixed(2);
-                document.getElementById('totalPurchases').textContent = stats.totalPurchases;
-                
-                console.log('Dashboard stats loaded:', stats);
-                
-            } catch (error) {
-                console.error('Error loading dashboard data:', error);
-                showNotification('Error loading data: ' + error.message, 'error');
-            }
-        }
-        
-        // Load users
-        function loadUsers() {
-            console.log('Loading users...');
-            
-            if (!window.db) return;
-            
-            allUsers = window.db.getUsers();
-            filteredUsers = [...allUsers];
-            
-            displayUsers();
-        }
-        
-        // Display users
-        function displayUsers() {
-            const tbody = document.getElementById('usersTableBody');
-            
-            if (filteredUsers.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No users found</td></tr>';
-                return;
-            }
-            
-            let tableHTML = '';
-            filteredUsers.forEach(user => {
-                const joinDate = new Date(user.joinDate).toLocaleDateString();
-                const statusClass = user.isActive ? 'status-online' : 'status-offline';
-                const statusText = user.isActive ? 'Online' : 'Offline';
-                
-                tableHTML += `
-                    <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="user-avatar me-3">
-                                    ${user.username.charAt(0).toUpperCase()}
-                                </div>
-                                <div>
-                                    <div class="fw-bold">${user.username}</div>
-                                    <small class="text-muted">ID: ${user.id}</small>
-                                </div>
-                            </div>
-                        </td>
-                        <td>${user.email}</td>
-                        <td><span class="rank-badge rank-${user.rank.toLowerCase()}">${user.rank}</span></td>
-                        <td>${user.coins.toLocaleString()}</td>
-                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                        <td>${joinDate}</td>
-                        <td>
-                            <button class="btn-action btn-edit" onclick="editUser('${user.id}')" title="Edit User">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            ${user.isActive ? 
-                                `<button class="btn-action btn-ban" onclick="banUser('${user.id}')" title="Ban User">
-                                    <i class="fas fa-ban"></i>
-                                </button>` :
-                                `<button class="btn-action btn-unban" onclick="unbanUser('${user.id}')" title="Unban User">
-                                    <i class="fas fa-check"></i>
-                                </button>`
-                            }
-                            <button class="btn-action btn-delete" onclick="deleteUser('${user.id}')" title="Delete User">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = tableHTML;
-            console.log('Users displayed:', filteredUsers.length);
-        }
-        
-        // Search users
-        function searchUsers() {
-            const searchTerm = document.getElementById('userSearch').value.toLowerCase();
-            
-            filteredUsers = allUsers.filter(user => 
-                user.username.toLowerCase().includes(searchTerm) ||
-                user.email.toLowerCase().includes(searchTerm)
-            );
-            
-            displayUsers();
-        }
-        
-        // Filter users
-        function filterUsers() {
-            const statusFilter = document.getElementById('statusFilter').value;
-            const rankFilter = document.getElementById('rankFilter').value;
-            
-            filteredUsers = allUsers.filter(user => {
-                const statusMatch = statusFilter === 'all' || 
-                    (statusFilter === 'online' && user.isActive) ||
-                    (statusFilter === 'offline' && !user.isActive);
-                
-                const rankMatch = rankFilter === 'all' || user.rank === rankFilter;
-                
-                return statusMatch && rankMatch;
-            });
-            
-            displayUsers();
-        }
-        
-        // Load recent signups
-        function loadRecentSignups() {
-            console.log('Loading recent signups...');
-            
-            if (!window.db) return;
-            
-            const users = window.db.getUsers()
-                .sort((a, b) => new Date(b.joinDate) - new Date(a.joinDate))
-                .slice(0, 10);
-            
-            const container = document.getElementById('signupsList');
-            
-            if (users.length === 0) {
-                container.innerHTML = '<p class="text-muted">No signups found</p>';
-                return;
-            }
-            
-            let signupsHTML = '';
-            users.forEach(user => {
-                const joinDate = new Date(user.joinDate).toLocaleDateString();
-                const joinTime = new Date(user.joinDate).toLocaleTimeString();
-                
-                signupsHTML += `
-                    <div class="user-card">
-                        <div class="d-flex align-items-center">
-                            <div class="user-avatar me-3">
-                                ${user.username.charAt(0).toUpperCase()}
-                            </div>
-                            <div class="user-info flex-grow-1">
-                                <h5>${user.username}</h5>
-                                <p><i class="fas fa-envelope me-1"></i>${user.email}</p>
-                                <p><i class="fas fa-calendar me-1"></i>Joined: ${joinDate} at ${joinTime}</p>
-                            </div>
-                            <div class="text-end">
-                                <span class="rank-badge rank-${user.rank.toLowerCase()}">${user.rank}</span>
-                                <div class="mt-2">
-                                    <button class="btn-action btn-edit" onclick="editUser('${user.id}')">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn-action btn-ban" onclick="banUser('${user.id}')">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = signupsHTML;
-            console.log('Recent signups loaded:', users.length);
-        }
-        
-        // Load purchases
-        function loadPurchases() {
-            console.log('Loading purchases...');
-            
-            if (!window.db) return;
-            
-            const purchases = window.db.getPurchases().slice(-10).reverse();
-            const container = document.getElementById('purchasesList');
-            
-            if (purchases.length === 0) {
-                container.innerHTML = '<p class="text-muted">No purchases found</p>';
-                return;
-            }
-            
-            let purchasesHTML = '';
-            purchases.forEach(purchase => {
-                const user = window.db.getUserById(purchase.userId);
-                const purchaseDate = new Date(purchase.purchaseDate).toLocaleDateString();
-                const purchaseTime = new Date(purchase.purchaseDate).toLocaleTimeString();
-                
-                purchasesHTML += `
-                    <div class="user-card">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h5>${purchase.itemName}</h5>
-                                <p class="mb-1"><i class="fas fa-user me-1"></i>by ${user ? user.username : 'Unknown'}</p>
-                                <p class="mb-0"><i class="fas fa-calendar me-1"></i>${purchaseDate} at ${purchaseTime}</p>
-                            </div>
-                            <div class="text-end">
-                                <div class="fw-bold text-success fs-4">$${purchase.price}</div>
-                                <small class="text-muted">Transaction ID: ${purchase.id}</small>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = purchasesHTML;
-            console.log('Purchases loaded:', purchases.length);
-        }
-        
-        // Load messages
-        function loadMessages() {
-            console.log('Loading messages...');
-            
-            if (!window.db) return;
-            
-            const messages = window.db.getMessages().slice(-10).reverse();
-            const container = document.getElementById('messagesList');
-            
-            if (messages.length === 0) {
-                container.innerHTML = '<p class="text-muted">No messages found</p>';
-                return;
-            }
-            
-            let messagesHTML = '';
-            messages.forEach(message => {
-                const messageDate = new Date(message.timestamp).toLocaleDateString();
-                const messageTime = new Date(message.timestamp).toLocaleTimeString();
-                
-                messagesHTML += `
-                    <div class="user-card">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h5>${message.subject}</h5>
-                            <small class="text-muted">${messageDate} at ${messageTime}</small>
-                        </div>
-                        <p class="mb-2">${message.message}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <small class="text-muted"><i class="fas fa-envelope me-1"></i>From: ${message.email}</small>
-                            <button class="btn-action btn-edit" onclick="replyToMessage('${message.id}')">
-                                <i class="fas fa-reply"></i> Reply
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = messagesHTML;
-            console.log('Messages loaded:', messages.length);
-        }
-        
-        // Load analytics
-        function loadAnalytics() {
-            console.log('Loading analytics...');
-            
-            if (!window.db) return;
-            
-            const users = window.db.getUsers();
-            const purchases = window.db.getPurchases();
-            
-            // Calculate real growth based on actual data
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            
-            // Count users from current month
-            const currentMonthUsers = users.filter(user => {
-                const userDate = new Date(user.joinDate);
-                return userDate.getMonth() === currentMonth && userDate.getFullYear() === currentYear;
-            }).length;
-            
-            // Count users from previous month
-            const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
-            const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
-            const prevMonthUsers = users.filter(user => {
-                const userDate = new Date(user.joinDate);
-                return userDate.getMonth() === prevMonth && userDate.getFullYear() === prevYear;
-            }).length;
-            
-            // Calculate user growth percentage
-            const userGrowth = prevMonthUsers > 0 ? 
-                Math.round(((currentMonthUsers - prevMonthUsers) / prevMonthUsers) * 100) : 
-                currentMonthUsers > 0 ? 100 : 0;
-            
-            // Calculate revenue growth
-            const currentMonthRevenue = purchases
-                .filter(purchase => {
-                    const purchaseDate = new Date(purchase.purchaseDate);
-                    return purchaseDate.getMonth() === currentMonth && purchaseDate.getFullYear() === currentYear;
-                })
-                .reduce((sum, purchase) => sum + purchase.price, 0);
-            
-            const prevMonthRevenue = purchases
-                .filter(purchase => {
-                    const purchaseDate = new Date(purchase.purchaseDate);
-                    return purchaseDate.getMonth() === prevMonth && purchaseDate.getFullYear() === prevYear;
-                })
-                .reduce((sum, purchase) => sum + purchase.price, 0);
-            
-            const revenueGrowth = prevMonthRevenue > 0 ? 
-                Math.round(((currentMonthRevenue - prevMonthRevenue) / prevMonthRevenue) * 100) : 
-                currentMonthRevenue > 0 ? 100 : 0;
-            
-            document.getElementById('userGrowth').textContent = (userGrowth >= 0 ? '+' : '') + userGrowth + '%';
-            document.getElementById('revenueGrowth').textContent = (revenueGrowth >= 0 ? '+' : '') + revenueGrowth + '%';
-            
-            console.log('Analytics loaded - User growth:', userGrowth + '%, Revenue growth:', revenueGrowth + '%');
-        }
-        
-        // Load server status
-        function loadServerStatus() {
-            console.log('Loading server status...');
-            
-            if (!window.db) return;
-            
-            // Get real data from database
-            const users = window.db.getUsers();
-            const activeUsers = users.filter(user => user.isActive).length;
-            const totalUsers = users.length;
-            
-            // Calculate uptime based on user activity (simplified)
-            const now = new Date();
-            const last24Hours = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-            const recentUsers = users.filter(user => new Date(user.joinDate) > last24Hours).length;
-            const uptime = totalUsers > 0 ? Math.round((activeUsers / totalUsers) * 100) : 0;
-            
-            document.getElementById('serverUptime').textContent = uptime + '%';
-            document.getElementById('playersOnline').textContent = activeUsers + '/' + totalUsers;
-            
-            console.log('Server status loaded - Active users:', activeUsers, 'Total users:', totalUsers);
-        }
-        
-        // Load activity logs
-        function loadActivityLogs() {
-            console.log('Loading activity logs...');
-            
-            if (!window.db) return;
-            
-            const users = window.db.getUsers();
-            const purchases = window.db.getPurchases();
-            const logs = [];
-            
-            // Generate sample logs
-            users.slice(0, 10).forEach(user => {
-                logs.push({
-                    timestamp: new Date().toISOString(),
-                    type: 'login',
-                    user: user.username,
-                    action: 'User Login',
-                    details: 'Logged in from web interface'
-                });
-            });
-            
-            purchases.slice(0, 5).forEach(purchase => {
-                const user = window.db.getUserById(purchase.userId);
-                logs.push({
-                    timestamp: purchase.purchaseDate,
-                    type: 'purchase',
-                    user: user ? user.username : 'Unknown',
-                    action: 'Purchase Made',
-                    details: `Purchased ${purchase.itemName} for $${purchase.price}`
-                });
-            });
-            
-            // Sort by timestamp (newest first)
-            logs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            
-            displayLogs(logs);
-            console.log('Activity logs loaded:', logs.length);
-        }
-        
-        // Display logs
-        function displayLogs(logs) {
-            const tbody = document.getElementById('logsTableBody');
-            
-            if (logs.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-4">No logs found</td></tr>';
-                return;
-            }
-            
-            let tableHTML = '';
-            logs.forEach(log => {
-                const timestamp = new Date(log.timestamp).toLocaleString();
-                const typeClass = 'badge bg-' + (log.type === 'error' ? 'danger' : log.type === 'purchase' ? 'success' : 'info');
-                
-                tableHTML += `
-                    <tr>
-                        <td>${timestamp}</td>
-                        <td><span class="${typeClass}">${log.type.toUpperCase()}</span></td>
-                        <td>${log.user}</td>
-                        <td>${log.action}</td>
-                        <td>${log.details}</td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = tableHTML;
-        }
-        
-        // Filter logs
-        function filterLogs() {
-            const typeFilter = document.getElementById('logTypeFilter').value;
-            const dateFilter = document.getElementById('logDateFilter').value;
-            
-            // This would filter logs based on type and date
-            console.log('Filtering logs by type:', typeFilter, 'date:', dateFilter);
-            loadActivityLogs(); // Reload for now
-        }
-        
-        // Export logs
-        function exportLogs() {
-            const logs = []; // Get current logs
-            const blob = new Blob([JSON.stringify(logs, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'activity-logs.json';
-            a.click();
-            URL.revokeObjectURL(url);
-            showNotification('Logs exported', 'success');
-        }
-        
-        // Generate report
-        function generateReport() {
-            if (window.db) {
-                const data = {
-                    users: window.db.getUsers(),
-                    purchases: window.db.getPurchases(),
-                    messages: window.db.getMessages(),
-                    generatedAt: new Date().toISOString()
-                };
-                
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'admin-report.json';
-                a.click();
-                URL.revokeObjectURL(url);
-                showNotification('Report generated', 'success');
-            }
-        }
-        
-        // Server actions
-        function restartServer() {
-            if (confirm('Are you sure you want to restart the server?')) {
-                showNotification('Server restart initiated...', 'info');
-                // In a real app, this would send a command to the server
-            }
-        }
-        
-        function backupServer() {
-            showNotification('Server backup started...', 'info');
-            // In a real app, this would initiate a server backup
-        }
-        
-        function updateServer() {
-            if (confirm('Are you sure you want to update the server?')) {
-                showNotification('Server update initiated...', 'info');
-                // In a real app, this would update the server
-            }
-        }
-        
-        // Load system info
-        function loadSystemInfo() {
-            const adminToken = localStorage.getItem('adminToken');
-            const adminData = localStorage.getItem('adminData');
-            
-            document.getElementById('adminTokenStatus').textContent = adminToken ? 'Valid' : 'Missing';
-            document.getElementById('databaseStatus').textContent = window.db ? 'Connected' : 'Disconnected';
-            document.getElementById('totalUsersInfo').textContent = window.db ? window.db.getUsers().length : '0';
-            
-            const lastBackup = localStorage.getItem('lastBackup');
-            document.getElementById('lastBackup').textContent = lastBackup || 'Never';
-        }
-        
-        // User actions
-        function editUser(userId) {
-            const user = window.db.getUserById(userId);
-            if (user) {
-                const newRank = prompt(`Edit rank for ${user.username}:`, user.rank);
-                if (newRank && newRank !== user.rank) {
-                    window.db.updateUser(userId, { rank: newRank });
-                    loadUsers();
-                    showNotification(`Updated ${user.username}'s rank to ${newRank}`, 'success');
-                }
-            }
-        }
-        
-        function banUser(userId) {
-            const user = window.db.getUserById(userId);
-            if (user && confirm(`Ban user ${user.username}?`)) {
-                window.db.updateUser(userId, { isActive: false });
-                loadUsers();
-                showNotification(`Banned user ${user.username}`, 'success');
-            }
-        }
-        
-        function unbanUser(userId) {
-            const user = window.db.getUserById(userId);
-            if (user && confirm(`Unban user ${user.username}?`)) {
-                window.db.updateUser(userId, { isActive: true });
-                loadUsers();
-                showNotification(`Unbanned user ${user.username}`, 'success');
-            }
-        }
-        
-        function deleteUser(userId) {
-            const user = window.db.getUserById(userId);
-            if (user && confirm(`Delete user ${user.username}? This cannot be undone!`)) {
-                window.db.deleteUser(userId);
-                loadUsers();
-                showNotification(`Deleted user ${user.username}`, 'success');
-            }
-        }
-        
-        function replyToMessage(messageId) {
-            const message = window.db.getMessageById(messageId);
-            if (message) {
-                const reply = prompt(`Reply to ${message.email}:`);
-                if (reply) {
-                    showNotification(`Reply sent to ${message.email}`, 'success');
-                }
-            }
-        }
-        
-        // Quick actions
-        function refreshData() {
-            loadDashboardData();
-            showNotification('Data refreshed', 'success');
-        }
-        
-        function createTestUser() {
-            showNotification('Test user creation disabled - use real user registration instead', 'info');
-        }
-        
-        function exportData() {
-            if (window.db) {
-                const data = window.db.exportData();
-                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'surfnetwork-data.json';
-                a.click();
-                URL.revokeObjectURL(url);
-                showNotification('Data exported', 'success');
-            }
-        }
-        
-        function backupData() {
-            if (window.db) {
-                const data = window.db.exportData();
-                localStorage.setItem('surfnetwork_backup_' + Date.now(), JSON.stringify(data));
-                localStorage.setItem('lastBackup', new Date().toISOString());
-                showNotification('Data backed up', 'success');
-            }
-        }
-        
-        function createSampleData() {
-            if (window.db) {
-                window.db.initSampleData();
-                loadUsers();
-                showNotification('Sample data created', 'success');
-            }
-        }
-        
-        function clearAllData() {
-            if (confirm('Are you sure you want to clear ALL data? This cannot be undone!')) {
-                localStorage.clear();
-                showNotification('All data cleared', 'success');
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }
-        }
-        
-        // Logout admin
-        function logoutAdmin() {
-            localStorage.removeItem('adminToken');
-            localStorage.removeItem('adminData');
-            window.location.href = 'admin-login-fixed.html';
-        }
-        
-        // Show notification
-        function showNotification(message, type = 'info') {
-            const notification = document.createElement('div');
-            notification.className = `notification ${type}`;
-            notification.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
-                    ${message}
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
-        }
-        
-        // Initialize admin panel
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, checking admin login...');
-            
-            // Load theme first
-            loadTheme();
-            
-            if (checkAdminLogin()) {
-                console.log('Admin authenticated, loading dashboard...');
-                loadDashboardData();
-            }
-        });
-    </script>
+    <script type="module" src="./js/admin.js"></script>
 </body>
 </html>
