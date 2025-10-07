@@ -130,6 +130,12 @@ EQuery(function () {
             .removeClass('error')
             .text('');
 
+        if (!termsCheckbox.val()) {
+            termsCheckbox.removeClass('shake');
+            termsCheckbox.addClass('shake');
+            return;
+        }
+
         if (validpsw && equalpsw) {
             let spinner = signupForm.find('.spinner-outer').spinner();
             this.disabled = true;
