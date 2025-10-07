@@ -13,9 +13,9 @@ EQuery(async function () {
             const loginLink = EQuery('#loginNavLink');
             userdata = state.userdata;
             loginLink.removeChildren()
-            .removeAttr('href')
-            .click(showUserMenu)
-            .append([EQuery.elemt('i', null, 'fas fa-user me-2'), userdata.username]);
+                .removeAttr('href')
+                .click(showUserMenu)
+                .append([EQuery.elemt('i', null, 'fas fa-user me-2'), userdata.username]);
         }
         loadTheme()
     });
@@ -77,15 +77,24 @@ EQuery(async function () {
         }, 100);
     }
 
-    setInterval(getStats, 30000);
+    setInterval(getStats, 5000);
 
     async function getStats() {
-        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-stats', {method: 'post'})).json().catch(function (e) {
+        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-stats', { method: 'post' }).catch(function () {
+            EQuery('#ip').text('Unavaliable');
+            EQuery('#serverStatus').addClass('bg-fail').text('Offline');
+            EQuery('#playersCount').text('0/0');
+            EQuery('#serverVersion').text('Unavaliable');
+            EQuery('#serverUptime').text('Offline');
+            EQuery('#totalPlayers').text('Unavaliable');
+            EQuery('#playerCount').text(0);
+            EQuery('#playersAvg').text(0);
+        })).json().catch(function (e) {
             throw new Error(e);
         });
 
         EQuery('#ip').text(response.ip);
-        EQuery('#serverStatus').addClass(response.status.online ? 'bg-success': 'bg-fail').text(response.status.online ? 'Online': 'Offline');
+        EQuery('#serverStatus').addClass(response.status.online ? 'bg-success' : 'bg-fail').text(response.status.online ? 'Online' : 'Offline');
         EQuery('#playersCount').text(response.status.count + '/' + response.max);
         EQuery('#serverVersion').text(response.status.version);
         EQuery('#serverUptime').text(response.status.uptime);
@@ -99,7 +108,7 @@ EQuery(async function () {
         ipRevealBtn.hide();
         this.disabled = true;
 
-        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-ip', {method: 'post'})).json().catch(function (e) {
+        let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-ip', { method: 'post' })).json().catch(function (e) {
             throw new Error(e);
         });
 
@@ -179,7 +188,7 @@ EQuery(async function () {
         const particleCount = 50;
 
         for (let i = 0; i < particleCount; i++) {
-            const animationStyle = i % 2 == 0 ? 'linear': i % 3 == 0 ? 'ease-in': 'ease-out'
+            const animationStyle = i % 2 == 0 ? 'linear' : i % 3 == 0 ? 'ease-in' : 'ease-out'
             const particle = EQuery.elemt('div', null, 'particle', null, `position: absolute;width: 8px;height: 8px;background: rgba(255, 255, 255, 0.5);pointer-events: none;animation: float ${Math.random() * 3 + 2}s infinite ${animationStyle};left: ${Math.random() * 100}%;top: ${Math.random() * 100}%;animation-delay: ${Math.random() * 2}s;`);
             container.append(particle);
         }
@@ -255,7 +264,7 @@ function showNotification(message, type = 'info') {
     const notification = EQuery.elemt('div', [
         EQuery.elemt('div',
             [
-                EQuery.elemt('i', null, `fas fa-${type === 'success' ? 'check-circle': type === 'error' ? 'exclamation-circle': 'info-circle'} me-2`),
+                EQuery.elemt('i', null, `fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2`),
                 message
             ],
             'd-flex align-items-center')
@@ -276,13 +285,13 @@ async function updateServerStatus() {
     const playerCountElement = document.getElementById('playerCount');
     if (playerCountElement) {
         setInterval(async function () {
-            let response = await (await fetch('https://surfnetwork-api.onrender.com/player-count', {method: 'post'})).json().catch(function (e) {
+            let response = await (await fetch('https://surfnetwork-api.onrender.com/player-count', { method: 'post' })).json().catch(function (e) {
                 throw new Error(e);
             });
             const currentCount = response.status.count;
             const maxCount = response.status.max;
             playerCountElement.textContent = `${currentCount}/${maxCount} Players`;
-        }, 30000);
+        }, 5000);
     }
 }
 
@@ -297,14 +306,14 @@ function loadTheme() {
     // Update theme icon
     const themeIcon = EQuery('#themeIcon').find('i');
     themeIcon.attr({
-        class: savedTheme === 'dark' ? 'fas fa-sun': 'fas fa-moon'
+        class: savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'
     });
 }
 
 function toggleTheme() {
     const state = getState();
     const currentTheme = EQuery(document.documentElement).getAttr('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light': 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
     EQuery(document.documentElement).attr({
         'data-theme': newTheme
@@ -313,7 +322,7 @@ function toggleTheme() {
     // Update theme icon
     const themeIcon = EQuery('#themeIcon').find('i');
     themeIcon.attr({
-        class: newTheme === 'dark' ? 'fas fa-sun': 'fas fa-moon'
+        class: newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'
     });
     state.theme = newTheme;
     setState(state);
