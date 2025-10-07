@@ -77,13 +77,14 @@ EQuery(async function () {
         }, 100);
     }
 
+    getStats();
     setInterval(getStats, 5000);
 
     async function getStats() {
         let response = await (await fetch('https://surfnetwork-api.onrender.com/get-server-stats', { method: 'post' }).catch(function () {
             EQuery('#ip').text('Unavaliable');
             EQuery('#serverStatus').addClass('bg-fail').text('Offline');
-            EQuery('#playersCount').text('0/0');
+            EQuery('#playersCount').text('0/0 Players');
             EQuery('#serverVersion').text('Unavaliable');
             EQuery('#serverUptime').text('Offline');
             EQuery('#totalPlayers').text('Unavaliable');
@@ -95,7 +96,7 @@ EQuery(async function () {
 
         EQuery('#ip').text(response.ip);
         EQuery('#serverStatus').addClass(response.status.online ? 'bg-success' : 'bg-fail').text(response.status.online ? 'Online' : 'Offline');
-        EQuery('#playersCount').text(response.status.count + '/' + response.max);
+        EQuery('#playersCount').text(response.status.count + '/' + response.max + ' Players');
         EQuery('#serverVersion').text(response.status.version);
         EQuery('#serverUptime').text(response.status.uptime);
         EQuery('#totalPlayers').text(response.status.total);
